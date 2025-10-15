@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Data Keuangan</title>
     <style>
+        /* ... (styles tetap sama) ... */
         * {
             margin: 0;
             padding: 0;
@@ -164,6 +165,16 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+        .debug-info {
+            background: #f1c40f;
+            color: #2c3e50;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -177,6 +188,10 @@
             <button class="btn-tambah" onclick="toggleForm()">+ Tambah Data Baru</button>
             
             <div class="alert" id="alert"></div>
+
+            <div class="debug-info" id="debugInfo">
+                <strong>Debug Info:</strong> <span id="debugText"></span>
+            </div>
             
             <div class="form-input" id="formInput">
                 <div class="form-group">
@@ -263,13 +278,25 @@
 
     <script>
         // === KONFIGURASI SUPABASE - GANTI DENGAN MILIK ANDA ===
-        const SUPABASE_URL = 'https://ubhsxvhjkshggzmfgsyw.supabase.co'; // Ganti dengan URL Supabase Anda
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViaHN4dmhqa3NoZ2d6bWZnc3l3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0OTkzMzAsImV4cCI6MjA3NjA3NTMzMH0.VkYKzRt2_GEGFron3unm5E7oQK96H0d3aM7pijdGW5U'; // Ganti dengan anon key Anda
+        const SUPABASE_URL = 'https://ubhsxvhjkshggzmfgsyw.supabase.co'; // GANTI
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViaHN4dmhqa3NoZ2d6bWZnc3l3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0OTkzMzAsImV4cCI6MjA3NjA3NTMzMH0.VkYKzRt2_GEGFron3unm5E7oQK96H0d3aM7pijdGW5U'; // GANTI
+
+        // Debug: Tampilkan info koneksi
+        console.log('Supabase URL:', SUPABASE_URL);
+        console.log('Supabase Key:', SUPABASE_ANON_KEY ? '✅ Ada' : '❌ Kosong');
 
         // Inisialisasi Supabase client
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentOmzet = 0;
+
+        function showDebugInfo(message) {
+            const debugInfo = document.getElementById('debugInfo');
+            const debugText = document.getElementById('debugText');
+            debugText.textContent = message;
+            debugInfo.style.display = 'block';
+            console.log('DEBUG:', message);
+        }
 
         // Fungsi untuk menampilkan/sembunyikan form
         function toggleForm() {
@@ -284,12 +311,15 @@
                 btnTambah.textContent = '✕ Tutup Form';
                 loadCurrentOmzet();
                 document.getElementById('tanggal').valueAsDate = new Date();
+                showDebugInfo('Form dibuka - testing koneksi...');
             }
         }
 
         // Fungsi untuk memuat omzet saat ini
         async function loadCurrentOmzet() {
             try {
+                showDebugInfo('Memuat data omzet...');
+                
                 const { data, error } = await supabase
                     .from('financial_records')
                     .select('omzet')
@@ -297,14 +327,22 @@
                     .limit(1)
                     .single();
 
-                if (error && error.code !== 'PGRST116') {
-                    throw error;
+                if (error) {
+                    if (error.code === 'PGRST116') {
+                        showDebugInfo('Tidak ada data sebelumnya, mulai dari 0');
+                        currentOmzet = 0;
+                    } else {
+                        throw error;
+                    }
+                } else {
+                    currentOmzet = data.omzet;
+                    showDebugInfo(`Omzet saat ini: Rp ${currentOmzet.toLocaleString()}`);
                 }
 
-                currentOmzet = data ? data.omzet : 0;
                 updateSummary();
             } catch (error) {
                 console.error('Error loading omzet:', error);
+                showDebugInfo(`Error: ${error.message}`);
                 currentOmzet = 0;
             }
         }
@@ -329,6 +367,7 @@
                 document.getElementById('bagiGemi').textContent = formatRupiah(bagiHasil);
 
                 summary.style.display = 'block';
+                showDebugInfo(`Perhitungan: Omzet baru Rp ${newOmzet.toLocaleString()}`);
             } else {
                 summary.style.display = 'none';
             }
@@ -351,9 +390,12 @@
             const kategori = document.getElementById('kategori').value;
             const keperluan = document.getElementById('keperluan').value;
 
+            showDebugInfo('Memulai proses penyimpanan...');
+
             // Validasi
             if (!tanggal || !kategori || !keperluan) {
                 showAlert('Harap isi semua field yang wajib!', 'error');
+                showDebugInfo('Validasi gagal: Field wajib belum diisi');
                 return;
             }
 
@@ -373,35 +415,46 @@
                 bagiHasilGemi = bagiHasil;
             }
 
+            // Data yang akan disimpan
+            const dataToInsert = {
+                tanggal: tanggal,
+                kategori: kategori,
+                debit: debit,
+                kredit: kredit,
+                keperluan: keperluan,
+                omzet: newOmzet,
+                laba_bersih: labaBersih,
+                bagi_hasil_anwar: bagiHasilAnwar,
+                bagi_hasil_suri: bagiHasilSuri,
+                bagi_hasil_gemi: bagiHasilGemi
+            };
+
+            console.log('Data yang akan disimpan:', dataToInsert);
+            showDebugInfo('Mengirim data ke Supabase...');
+
             // Tampilkan loading
             document.getElementById('loading').style.display = 'block';
 
             try {
                 const { data, error } = await supabase
                     .from('financial_records')
-                    .insert([
-                        {
-                            tanggal: tanggal,
-                            kategori: kategori,
-                            debit: debit,
-                            kredit: kredit,
-                            keperluan: keperluan,
-                            omzet: newOmzet,
-                            laba_bersih: labaBersih,
-                            bagi_hasil_anwar: bagiHasilAnwar,
-                            bagi_hasil_suri: bagiHasilSuri,
-                            bagi_hasil_gemi: bagiHasilGemi
-                        }
-                    ]);
+                    .insert([dataToInsert]);
 
-                if (error) throw error;
+                if (error) {
+                    console.error('Supabase Error:', error);
+                    showDebugInfo(`Error Supabase: ${error.message}`);
+                    throw error;
+                }
 
+                console.log('Data berhasil disimpan:', data);
+                showDebugInfo('✅ Data berhasil disimpan!');
                 showAlert('Data berhasil disimpan!', 'success');
                 resetForm();
                 toggleForm();
                 
             } catch (error) {
                 console.error('Error saving data:', error);
+                showDebugInfo(`❌ Gagal: ${error.message}`);
                 showAlert('Gagal menyimpan data: ' + error.message, 'error');
             } finally {
                 document.getElementById('loading').style.display = 'none';
@@ -428,6 +481,11 @@
                 alert.style.display = 'none';
             }, 5000);
         }
+
+        // Test koneksi saat load
+        window.addEventListener('load', function() {
+            showDebugInfo('Aplikasi loaded - pastikan Supabase credentials sudah benar');
+        });
     </script>
 
     <!-- Include Supabase JS -->
