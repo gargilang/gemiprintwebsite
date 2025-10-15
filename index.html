@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data Keuangan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .btn-tambah {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-tambah:hover {
+            background: #2980b9;
+        }
+
+        .form-input {
+            display: none;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .btn-submit {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #219a52;
+        }
+
+        .summary {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .summary h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #bdc3c7;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #3498db;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Sistem Keuangan</h1>
+            <p>Input dan Kelola Data Keuangan Perusahaan</p>
+        </div>
+        
+        <div class="content">
+            <button class="btn-tambah" onclick="toggleForm()">+ Tambah Data Baru</button>
+            
+            <div class="alert" id="alert"></div>
+            
+            <div class="form-input" id="formInput">
+                <div class="form-group">
+                    <label for="tanggal">Tanggal:</label>
+                    <input type="date" id="tanggal" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="debit">Debit (Rp):</label>
+                    <input type="number" id="debit" placeholder="Masukkan nominal debit" step="1000" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="kredit">Kredit (Rp):</label>
+                    <input type="number" id="kredit" placeholder="Masukkan nominal kredit" step="1000" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="kategori">Kategori:</label>
+                    <select id="kategori" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="KAS">KAS</option>
+                        <option value="BIAYA">BIAYA</option>
+                        <option value="OMZET">OMZET</option>
+                        <option value="INVESTOR">INVESTOR</option>
+                        <option value="SUBSIDI">SUBSIDI</option>
+                        <option value="LUNAS">LUNAS</option>
+                        <option value="SUPPLY">SUPPLY</option>
+                        <option value="LABA">LABA</option>
+                        <option value="KOMISI">KOMISI</option>
+                        <option value="TABUNGAN">TABUNGAN</option>
+                        <option value="HUTANG">HUTANG</option>
+                        <option value="PIUTANG">PIUTANG</option>
+                        <option value="PRIBADI-A">PRIBADI-A</option>
+                        <option value="PRIBADI-S">PRIBADI-S</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="keperluan">Keperluan:</label>
+                    <input type="text" id="keperluan" placeholder="Deskripsi keperluan" required>
+                </div>
+                
+                <div class="summary" id="summary">
+                    <h3>📊 Ringkasan Perhitungan</h3>
+                    <div class="summary-item">
+                        <span>Omzet Sebelumnya:</span>
+                        <span id="prevOmzet">Rp 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Debit Input:</span>
+                        <span id="inputDebit">Rp 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Omzet Baru:</span>
+                        <span id="newOmzet">Rp 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Laba Bersih (1/3):</span>
+                        <span id="labaBersih">Rp 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Bagi Hasil Anwar:</span>
+                        <span id="bagiAnwar">Rp 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Bagi Hasil Suri:</span>
+                        <span id="bagiSuri">Rp 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Bagi Hasil Gemi:</span>
+                        <span id="bagiGemi">Rp 0</span>
+                    </div>
+                </div>
+                
+                <button class="btn-submit" onclick="submitData()">Simpan Data</button>
+            </div>
+            
+            <div class="loading" id="loading">
+                Menyimpan data...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi Supabase
+        const SUPABASE_URL = 'https://ubhsxvhjkshggzmfgsyw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViaHN4dmhqa3NoZ2d6bWZnc3l3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0OTkzMzAsImV4cCI6MjA3NjA3NTMzMH0.VkYKzRt2_GEGFron3unm5E7oQK96H0d3aM7pijdGW5U';
+
+        // Inisialisasi Supabase client
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentOmzet = 0;
+
+        // Fungsi untuk menampilkan/sembunyikan form
+        function toggleForm() {
+            const form = document.getElementById('formInput');
+            const btnTambah = document.querySelector('.btn-tambah');
+            
+            if (form.style.display === 'block') {
+                form.style.display = 'none';
+                btnTambah.textContent = '+ Tambah Data Baru';
+            } else {
+                form.style.display = 'block';
+                btnTambah.textContent = '✕ Tutup Form';
+                loadCurrentOmzet();
+                document.getElementById('tanggal').valueAsDate = new Date();
+            }
+        }
+
+        // Fungsi untuk memuat omzet saat ini
+        async function loadCurrentOmzet() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('financial_records')
+                    .select('omzet')
+                    .order('tanggal', { ascending: false })
+                    .limit(1)
+                    .single();
+
+                if (error && error.code !== 'PGRST116') {
+                    throw error;
+                }
+
+                currentOmzet = data ? data.omzet : 0;
+                updateSummary();
+            } catch (error) {
+                console.error('Error loading omzet:', error);
+                currentOmzet = 0;
+            }
+        }
+
+        // Fungsi untuk update summary perhitungan
+        function updateSummary() {
+            const debit = parseFloat(document.getElementById('debit').value) || 0;
+            const kategori = document.getElementById('kategori').value;
+            const summary = document.getElementById('summary');
+
+            if (kategori === 'OMZET' && debit > 0) {
+                const newOmzet = currentOmzet + debit;
+                const labaBersih = newOmzet / 3;
+                const bagiHasil = labaBersih / 3;
+
+                document.getElementById('prevOmzet').textContent = formatRupiah(currentOmzet);
+                document.getElementById('inputDebit').textContent = formatRupiah(debit);
+                document.getElementById('newOmzet').textContent = formatRupiah(newOmzet);
+                document.getElementById('labaBersih').textContent = formatRupiah(labaBersih);
+                document.getElementById('bagiAnwar').textContent = formatRupiah(bagiHasil);
+                document.getElementById('bagiSuri').textContent = formatRupiah(bagiHasil);
+                document.getElementById('bagiGemi').textContent = formatRupiah(bagiHasil);
+
+                summary.style.display = 'block';
+            } else {
+                summary.style.display = 'none';
+            }
+        }
+
+        // Event listeners untuk real-time calculation
+        document.getElementById('debit').addEventListener('input', updateSummary);
+        document.getElementById('kategori').addEventListener('change', updateSummary);
+
+        // Fungsi format Rupiah
+        function formatRupiah(angka) {
+            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        // Fungsi submit data
+        async function submitData() {
+            const tanggal = document.getElementById('tanggal').value;
+            const debit = parseFloat(document.getElementById('debit').value) || 0;
+            const kredit = parseFloat(document.getElementById('kredit').value) || 0;
+            const kategori = document.getElementById('kategori').value;
+            const keperluan = document.getElementById('keperluan').value;
+
+            // Validasi
+            if (!tanggal || !kategori || !keperluan) {
+                showAlert('Harap isi semua field yang wajib!', 'error');
+                return;
+            }
+
+            // Hitung nilai berdasarkan logika bisnis
+            let newOmzet = currentOmzet;
+            let labaBersih = 0;
+            let bagiHasilAnwar = 0;
+            let bagiHasilSuri = 0;
+            let bagiHasilGemi = 0;
+
+            if (kategori === 'OMZET' && debit > 0) {
+                newOmzet = currentOmzet + debit;
+                labaBersih = newOmzet / 3;
+                const bagiHasil = labaBersih / 3;
+                bagiHasilAnwar = bagiHasil;
+                bagiHasilSuri = bagiHasil;
+                bagiHasilGemi = bagiHasil;
+            }
+
+            // Tampilkan loading
+            document.getElementById('loading').style.display = 'block';
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('financial_records')
+                    .insert([
+                        {
+                            tanggal: tanggal,
+                            kategori: kategori,
+                            debit: debit,
+                            kredit: kredit,
+                            keperluan: keperluan,
+                            omzet: newOmzet,
+                            laba_bersih: labaBersih,
+                            bagi_hasil_anwar: bagiHasilAnwar,
+                            bagi_hasil_suri: bagiHasilSuri,
+                            bagi_hasil_gemi: bagiHasilGemi
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                showAlert('Data berhasil disimpan!', 'success');
+                resetForm();
+                toggleForm();
+                
+            } catch (error) {
+                console.error('Error saving data:', error);
+                showAlert('Gagal menyimpan data: ' + error.message, 'error');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        // Fungsi reset form
+        function resetForm() {
+            document.getElementById('debit').value = '';
+            document.getElementById('kredit').value = '';
+            document.getElementById('kategori').value = '';
+            document.getElementById('keperluan').value = '';
+            document.getElementById('summary').style.display = 'none';
+        }
+
+        // Fungsi show alert
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+
+    <!-- Include Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</body>
+</html>
