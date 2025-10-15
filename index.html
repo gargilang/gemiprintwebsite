@@ -262,12 +262,12 @@
     </div>
 
     <script>
-        // Konfigurasi Supabase
-        const SUPABASE_URL = 'https://ubhsxvhjkshggzmfgsyw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViaHN4dmhqa3NoZ2d6bWZnc3l3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0OTkzMzAsImV4cCI6MjA3NjA3NTMzMH0.VkYKzRt2_GEGFron3unm5E7oQK96H0d3aM7pijdGW5U';
+        // === KONFIGURASI SUPABASE - GANTI DENGAN MILIK ANDA ===
+        const SUPABASE_URL = 'https://ubhsxvhjkshggzmfgsyw.supabase.co'; // Ganti dengan URL Supabase Anda
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViaHN4dmhqa3NoZ2d6bWZnc3l3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0OTkzMzAsImV4cCI6MjA3NjA3NTMzMH0.VkYKzRt2_GEGFron3unm5E7oQK96H0d3aM7pijdGW5U'; // Ganti dengan anon key Anda
 
         // Inisialisasi Supabase client
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentOmzet = 0;
 
@@ -290,7 +290,7 @@
         // Fungsi untuk memuat omzet saat ini
         async function loadCurrentOmzet() {
             try {
-                const { data, error } = await supabaseClient
+                const { data, error } = await supabase
                     .from('financial_records')
                     .select('omzet')
                     .order('tanggal', { ascending: false })
@@ -377,7 +377,7 @@
             document.getElementById('loading').style.display = 'block';
 
             try {
-                const { data, error } = await supabaseClient
+                const { data, error } = await supabase
                     .from('financial_records')
                     .insert([
                         {
