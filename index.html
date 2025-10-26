@@ -1,148 +1,129 @@
 <!DOCTYPE html>
+<!-- Font usage updated: Bauhaus 93 for GEMIPRINT brand, TW Cen MT family for all other text -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GEMIPRINT</title>
+    <title>GEMIPRINT - Professional Printing Services</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Navigation Bar -->
+    <!-- Navbar with logo using Bauhaus 93 font -->
     <nav class="navbar">
       <div class="nav-container">
-        <!-- Company logo + Name -->
-        <div class="nav-logo">
-          <a href="#home" class="nav-logo-link">
-            <img
-              src="images/logo-default.svg"
-              alt="Company Logo"
-              class="logo-img"
-            />
-            <span class="company-name">GEMIPRINT</span>
-          </a>
-        </div>
-
-        <!-- Desktop Navigation Menu -->
-        <div class="nav-menu">
-          <a href="#home" class="nav-link">Home</a>
-
-          <!-- About Us Dropdown -->
-          <div class="dropdown">
-            <a href="#about" class="nav-link">About Us</a>
-            <div class="dropdown-content">
-              <a href="#mission">Our Mission</a>
-              <a href="#product">Our Product</a>
-              <a href="#machines">Our Machines</a>
-            </div>
-          </div>
-
-          <a href="#testimonials" class="nav-link">Testimonials</a>
-          <a href="#how-it-works" class="nav-link">How it Works</a>
-
-          <!-- Language Selector -->
-          <div class="dropdown language-selector">
-            <div class="nav-link language-toggle">
-              <span class="language-icon">🌐</span>
-              <span class="language-text">EN</span>
-            </div>
-            <div class="dropdown-content">
-              <a href="#" data-lang="en">EN</a>
-              <a href="#" data-lang="id">ID</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile Hamburger Menu -->
-        <div class="hamburger">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-      </div>
-
-      <!-- Mobile Side Menu -->
-      <div class="mobile-menu">
-        <div class="mobile-menu-header">
-          <img src="logo.png" alt="Company Logo" class="mobile-logo" />
-        </div>
-        <div class="mobile-nav-links">
-          <a href="#home" class="mobile-nav-link">Home</a>
-          <div class="mobile-dropdown">
-            <a href="#about" class="mobile-nav-link mobile-dropdown-toggle"
-              >About Us</a
-            >
-            <div class="mobile-dropdown-content">
-              <a href="#mission" class="mobile-sub-link">Our Mission</a>
-              <a href="#product" class="mobile-sub-link">Our Product</a>
-              <a href="#machines" class="mobile-sub-link">Our Machines</a>
-            </div>
-          </div>
-          <a href="#testimonials" class="mobile-nav-link">Testimonials</a>
-          <a href="#how-it-works" class="mobile-nav-link">How it Works</a>
-          <div class="mobile-language">
-            <span class="mobile-lang-label">Language:</span>
-            <a href="#" class="mobile-lang-option" data-lang="en">EN</a>
-            <a href="#" class="mobile-lang-option" data-lang="id">ID</a>
-          </div>
-        </div>
+        <!-- GEMIPRINT logo uses Bauhaus 93 (all lowercase as specified) -->
+        <a href="#" class="logo">gemiprint</a>
+        <ul class="nav-links">
+          <!-- Nav links use Tw Cen MT Bold -->
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
       </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- ================= BANNER SECTION ================= -->
-      <section id="home" class="banner-section">
-        <div class="banner-bg">
-          <!-- ===== Banner Content (Flex) ===== -->
-          <div class="banner-left">
-            <h1 class="banner-title">Lorem Ipsum Dolor Sit Amet</h1>
-            <p class="banner-subbody">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              fermentum, nunc at dictum rhoncus, urna erat lacinia erat, ac
-              porta erat augue nec neque.
-            </p>
-            <button class="order-btn">Order Now</button>
-          </div>
-          <div class="banner-right">
-            <img
-              src="images/banner-cmyk.svg"
-              alt="Banner Image"
-              class="banner-img"
-            />
-          </div>
+    <!-- Hero Section with Tw Cen MT Extra Bold for heading -->
+    <section class="hero">
+      <div class="hero-content">
+        <!-- Main heading uses Tw Cen MT Extra Bold -->
+        <h1>Welcome to GEMIPRINT</h1>
+        <!-- Subheading uses Tw Cen MT Light -->
+        <p>Your Partner in Professional Printing Solutions</p>
+        <!-- CTA button uses Tw Cen MT Bold Condensed -->
+        <a href="#contact" class="cta-button">Get Started</a>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+      <!-- Section heading uses Tw Cen MT Extra Bold -->
+      <h2>Our Services</h2>
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon">🖨️</div>
+          <!-- Card title uses Tw Cen MT Bold -->
+          <h3>Digital Printing</h3>
+          <!-- Card description uses Tw Cen MT Regular -->
+          <p>
+            High-quality digital printing for all your business needs with fast
+            turnaround times.
+          </p>
         </div>
-      </section>
+        <div class="service-card">
+          <div class="service-icon">📄</div>
+          <h3>Offset Printing</h3>
+          <p>
+            Professional offset printing services for large volume projects and
+            superior quality.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎨</div>
+          <h3>Design Services</h3>
+          <p>
+            Expert graphic design and layout services to bring your vision to
+            life.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📦</div>
+          <h3>Custom Packaging</h3>
+          <p>
+            Create unique and eye-catching packaging solutions for your
+            products.
+          </p>
+        </div>
+      </div>
+    </section>
 
-      <section id="about" class="section">
-        <h1>About Us</h1>
-        <p>About content here...</p>
-      </section>
+    <!-- About Section -->
+    <section class="about" id="about">
+      <!-- Section heading uses Tw Cen MT Extra Bold -->
+      <h2>About Us</h2>
+      <div class="about-content">
+        <!-- Body text uses Tw Cen MT Light -->
+        <p>
+          At GEMIPRINT, we are dedicated to providing exceptional printing
+          services that exceed your expectations. With years of experience in
+          the industry, we combine cutting-edge technology with traditional
+          craftsmanship.
+        </p>
+        <p>
+          Our team of professionals is committed to delivering high-quality
+          results on time, every time. Whether you need business cards,
+          brochures, or large-format printing, we have the expertise and
+          equipment to handle projects of any size.
+        </p>
+      </div>
+    </section>
 
-      <section id="mission" class="section">
-        <h2>Our Mission</h2>
-        <p>Mission content here...</p>
-      </section>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+      <!-- Section heading uses Tw Cen MT Extra Bold -->
+      <h2>Get In Touch</h2>
+      <div class="contact-content">
+        <form class="contact-form">
+          <!-- Form labels use Tw Cen MT Bold -->
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
 
-      <section id="product" class="section">
-        <h2>Our Product</h2>
-        <p>Product content here...</p>
-      </section>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
 
-      <section id="machines" class="section">
-        <h2>Our Machines</h2>
-        <p>Machines content here...</p>
-      </section>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
 
-      <section id="testimonials" class="section">
-        <h1>Testimonials</h1>
-        <p>Testimonials content here...</p>
-      </section>
+          <!-- Submit button uses Tw Cen MT Bold Condensed -->
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
 
-      <section id="how-it-works" class="section">
-        <h1>How it Works</h1>
-        <p>How it works content here...</p>
-      </section>
-    </main>
+    <!-- Footer -->
+    <footer>
+      <!-- Footer text uses Tw Cen MT Light -->
+      <p>&copy; 2024 GEMIPRINT. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
   </body>
