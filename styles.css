@@ -1,0 +1,572 @@
+/* ================= NAVIGATION & HEADER ================= */
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 60px;
+}
+
+.nav-container {
+  max-width: 2100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.company-name {
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0c1b37;
+  margin-left: 12px;
+}
+
+/* Desktop Navigation Menu */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 10px 0;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  border-radius: 5px;
+  top: 100%;
+  left: 0;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Language Selector */
+.language-selector {
+  padding-left: 20px;
+  border-left: 1px solid #eee;
+}
+
+.language-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.language-icon {
+  font-size: 16px;
+}
+
+.language-text {
+  font-weight: 500;
+}
+
+/* Hamburger Menu (Mobile) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  left: -100%;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+  z-index: 1002;
+  overflow-y: auto;
+}
+
+.mobile-menu.active {
+  left: 0;
+}
+
+.mobile-menu-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-logo {
+  height: 35px;
+  width: auto;
+}
+
+.mobile-nav-links {
+  padding: 20px 0;
+}
+
+.mobile-nav-link {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  background-color: #f8f9fa;
+}
+
+/* Mobile Dropdown */
+.mobile-dropdown-content {
+  display: none;
+  background-color: #f8f9fa;
+}
+
+.mobile-dropdown-content.active {
+  display: block;
+}
+
+.mobile-sub-link {
+  display: block;
+  color: #666;
+  text-decoration: none;
+  padding: 12px 40px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-sub-link:hover {
+  background-color: #e9ecef;
+}
+
+/* Mobile Language Selector */
+.mobile-language {
+  padding: 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.mobile-lang-label {
+  font-weight: 500;
+  color: #666;
+}
+
+.mobile-lang-option {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-lang-option:hover {
+  background-color: #e3f2fd;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+  margin-top: 60px;
+  padding: 40px 20px;
+}
+
+.section {
+  max-width: 1200px;
+  margin: 0 auto 60px auto;
+  padding: 40px 0;
+  min-height: 400px;
+}
+
+.section h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.section h2 {
+  margin-bottom: 15px;
+  color: #666;
+}
+
+/* ================= BANNER SECTION ================= */
+.banner-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 680px;
+  margin-top: 80px;
+  position: relative;
+}
+
+/* Banner background dynamic rectangle */
+.banner-bg {
+  width: 100%;
+  max-width: 2300px;
+  height: 660px;
+  background-color: #0c1b37;
+  border-radius: 60px;
+  margin: 0 auto 40px auto;
+  box-shadow: 0 16px 48px rgba(0, 27, 55, 0.12);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px; /* Adds horizontal padding */
+}
+
+/* Banner Left Side (Text) */
+.banner-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 48%;
+}
+
+.banner-title {
+  color: #fff;
+  font-size: 3.4rem;
+  font-weight: 800;
+  margin-bottom: 32px;
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+.banner-subbody {
+  color: #e2ebf7;
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin-bottom: 48px;
+}
+
+/* Banner Right Side (Image) */
+.banner-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 78%;
+  height: 100%;
+}
+
+.banner-img {
+  width: 480px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make Order Button as part of .banner-left for layout */
+.banner-left .order-btn {
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  width: 390px;
+  max-width: 90vw;
+  height: 80px;
+  background-color: #00afef;
+  color: white;
+  font-size: 2.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0 6px 16px rgba(0, 175, 239, 0.1);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-top: -40px;
+}
+
+.order-btn:hover {
+  background-color: #106c9d;
+  color: #fff;
+}
+
+/* ================= RESPONSIVE BREAKPOINTS ================= */
+
+/* Mobile Portrait (max 480px) */
+@media screen and (max-width: 480px) {
+  .navbar {
+    height: 50px;
+  }
+  .nav-menu {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .main-content {
+    margin-top: 50px;
+    padding: 20px 15px;
+  }
+  .section {
+    margin-bottom: 40px;
+    padding: 20px 0;
+    min-height: 300px;
+  }
+  .banner-section {
+    min-height: 320px;
+    margin-top: 56px;
+  }
+  .banner-bg {
+    height: 220px;
+    border-radius: 28px;
+  }
+  .order-btn {
+    width: 90vw;
+    height: 54px;
+    font-size: 1.1rem;
+    border-radius: 27px;
+    left: 16px;
+    margin-top: -16px;
+  }
+  .company-name {
+    font-size: 1rem;
+    margin-left: 7px;
+  }
+}
+
+/* Mobile Landscape (481px-767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .navbar {
+    height: 55px;
+  }
+  .nav-menu {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .main-content {
+    margin-top: 55px;
+    padding: 25px 20px;
+  }
+  .banner-section {
+    min-height: 420px;
+    margin-top: 56px;
+  }
+  .banner-bg {
+    height: 280px;
+    border-radius: 38px;
+  }
+  .order-btn {
+    width: 40vw;
+    height: 60px;
+    font-size: 1.3rem;
+    border-radius: 33px;
+    left: 20px;
+    margin-top: -18px;
+  }
+  .company-name {
+    font-size: 1.25rem;
+    margin-left: 8px;
+  }
+}
+
+/* Tablet Portrait (768px-1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .nav-container {
+    padding: 0 30px;
+  }
+  .nav-menu {
+    gap: 25px;
+  }
+  .hamburger {
+    display: none;
+  }
+  .section {
+    padding: 35px 0;
+  }
+  .banner-section {
+    min-height: 520px;
+  }
+  .banner-bg {
+    height: 440px;
+    border-radius: 50px;
+  }
+  .order-btn {
+    width: 340px;
+    height: 62px;
+    font-size: 1.7rem;
+    border-radius: 39px;
+    left: 24px;
+    margin-top: -30px;
+  }
+  .company-name {
+    font-size: 1.35rem;
+    margin-left: 10px;
+  }
+}
+
+/* Tablet Landscape (1024px-1279px) */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .banner-section {
+    min-height: 600px;
+  }
+  .banner-bg {
+    height: 500px;
+    border-radius: 45px;
+  }
+  .order-btn {
+    width: 370px;
+    height: 75px;
+    font-size: 2rem;
+    border-radius: 44px;
+    left: 28px;
+    margin-top: -36px;
+  }
+  .company-name {
+    font-size: 1.45rem;
+    margin-left: 12px;
+  }
+}
+
+/* HD desktop (1280px-1919px) */
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .banner-section {
+    min-height: 660px;
+  }
+  .banner-bg {
+    height: 660px;
+    border-radius: 60px;
+  }
+  .order-btn {
+    width: 390px;
+    height: 80px;
+    font-size: 2.2rem;
+    border-radius: 45px;
+    left: 40px;
+    margin-top: -40px;
+  }
+  .company-name {
+    font-size: 1.5rem;
+    margin-left: 12px;
+  }
+}
+
+/* UHD desktop (1920px and up) */
+@media screen and (min-width: 1920px) {
+  .banner-section {
+    max-width: 2560px;
+    min-height: 900px;
+  }
+  .banner-bg {
+    height: 840px;
+    border-radius: 75px;
+  }
+  .order-btn {
+    width: 450px;
+    height: 96px;
+    font-size: 2.7rem;
+    border-radius: 60px;
+    left: 56px;
+    margin-top: -48px;
+  }
+  .company-name {
+    font-size: 2rem;
+    margin-left: 16px;
+  }
+}
+
+/* Hamburger Animation */
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Overlay for mobile menu */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+}
+
+.overlay.active {
+  display: block;
+}
+
+/* ================= BODY BASE & RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: #ccf1ff;
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ================= END STYLES ================= */

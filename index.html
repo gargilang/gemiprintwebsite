@@ -1,135 +1,149 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Form Input Keuangan</title>
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    #form-container { display: none; margin-top: 20px; }
-    label { display: block; margin-top: 10px; }
-    input, select { width: 200px; padding: 5px; }
-    button { margin-top: 15px; padding: 8px 12px; }
-  </style>
-</head>
-<body>
-  <h2>Input Data Keuangan</h2>
-  <button id="btnTambah">Tambah</button>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GEMIPRINT</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <!-- Company logo + Name -->
+        <div class="nav-logo">
+          <a href="#home" class="nav-logo-link">
+            <img
+              src="images/logo-default.svg"
+              alt="Company Logo"
+              class="logo-img"
+            />
+            <span class="company-name">GEMIPRINT</span>
+          </a>
+        </div>
 
-  <div id="form-container">
-    <form id="keuanganForm">
-      <label>Tanggal:
-        <input type="date" id="tanggal" required>
-      </label>
-      <label>Debit (Rp):
-        <input type="number" id="debit" min="0">
-      </label>
-      <label>Kredit (Rp):
-        <input type="number" id="kredit" min="0">
-      </label>
-      <label>Kategori:
-        <select id="kategori" required>
-          <option value="">-- Pilih --</option>
-          <option>KAS</option>
-          <option>BIAYA</option>
-          <option>OMZET</option>
-          <option>INVESTOR</option>
-          <option>SUBSIDI</option>
-          <option>LUNAS</option>
-          <option>SUPPLY</option>
-          <option>LABA</option>
-          <option>KOMISI</option>
-          <option>TABUNGAN</option>
-          <option>HUTANG</option>
-          <option>PIUTANG</option>
-          <option>PRIBADI-A</option>
-          <option>PRIBADI-S</option>
-        </select>
-      </label>
-      <label>Keperluan:
-        <input type="text" id="keperluan">
-      </label>
-      <button type="submit">Simpan</button>
-    </form>
-  </div>
+        <!-- Desktop Navigation Menu -->
+        <div class="nav-menu">
+          <a href="#home" class="nav-link">Home</a>
 
-  <script>
-    // Konfigurasi Supabase
-    const SUPABASE_URL = "https://ubhsxvhjkshggzmfgsyw.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViaHN4dmhqa3NoZ2d6bWZnc3l3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0OTkzMzAsImV4cCI6MjA3NjA3NTMzMH0.VkYKzRt2_GEGFron3unm5E7oQK96H0d3aM7pijdGW5U";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+          <!-- About Us Dropdown -->
+          <div class="dropdown">
+            <a href="#about" class="nav-link">About Us</a>
+            <div class="dropdown-content">
+              <a href="#mission">Our Mission</a>
+              <a href="#product">Our Product</a>
+              <a href="#machines">Our Machines</a>
+            </div>
+          </div>
 
-    // Tombol tambah
-    document.getElementById("btnTambah").addEventListener("click", () => {
-      document.getElementById("form-container").style.display = "block";
-    });
+          <a href="#testimonials" class="nav-link">Testimonials</a>
+          <a href="#how-it-works" class="nav-link">How it Works</a>
 
-    // Submit form
-    document.getElementById("keuanganForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
+          <!-- Language Selector -->
+          <div class="dropdown language-selector">
+            <div class="nav-link language-toggle">
+              <span class="language-icon">🌐</span>
+              <span class="language-text">EN</span>
+            </div>
+            <div class="dropdown-content">
+              <a href="#" data-lang="en">EN</a>
+              <a href="#" data-lang="id">ID</a>
+            </div>
+          </div>
+        </div>
 
-      const tanggal = document.getElementById("tanggal").value;
-      const debit = parseFloat(document.getElementById("debit").value) || 0;
-      const kredit = parseFloat(document.getElementById("kredit").value) || 0;
-      const kategori = document.getElementById("kategori").value;
-      const keperluan = document.getElementById("keperluan").value;
+        <!-- Mobile Hamburger Menu -->
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
 
-      // Validasi: debit dan kredit tidak boleh keduanya terisi
-      if (debit > 0 && kredit > 0) {
-        alert("Hanya boleh mengisi Debit ATAU Kredit, bukan keduanya.");
-        return;
-      }
+      <!-- Mobile Side Menu -->
+      <div class="mobile-menu">
+        <div class="mobile-menu-header">
+          <img src="logo.png" alt="Company Logo" class="mobile-logo" />
+        </div>
+        <div class="mobile-nav-links">
+          <a href="#home" class="mobile-nav-link">Home</a>
+          <div class="mobile-dropdown">
+            <a href="#about" class="mobile-nav-link mobile-dropdown-toggle"
+              >About Us</a
+            >
+            <div class="mobile-dropdown-content">
+              <a href="#mission" class="mobile-sub-link">Our Mission</a>
+              <a href="#product" class="mobile-sub-link">Our Product</a>
+              <a href="#machines" class="mobile-sub-link">Our Machines</a>
+            </div>
+          </div>
+          <a href="#testimonials" class="mobile-nav-link">Testimonials</a>
+          <a href="#how-it-works" class="mobile-nav-link">How it Works</a>
+          <div class="mobile-language">
+            <span class="mobile-lang-label">Language:</span>
+            <a href="#" class="mobile-lang-option" data-lang="en">EN</a>
+            <a href="#" class="mobile-lang-option" data-lang="id">ID</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-      // Ambil total omzet terakhir
-      let { data: existing, error: fetchError } = await supabase
-        .from("keuangan")
-        .select("omzet, laba_bersih, bagi_hasil_anwar, bagi_hasil_suri, bagi_hasil_gemi")
-        .order("id", { ascending: false })
-        .limit(1);
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- ================= BANNER SECTION ================= -->
+      <section id="home" class="banner-section">
+        <div class="banner-bg">
+          <!-- ===== Banner Content (Flex) ===== -->
+          <div class="banner-left">
+            <h1 class="banner-title">Lorem Ipsum Dolor Sit Amet</h1>
+            <p class="banner-subbody">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+              fermentum, nunc at dictum rhoncus, urna erat lacinia erat, ac
+              porta erat augue nec neque.
+            </p>
+            <button class="order-btn">Order Now</button>
+          </div>
+          <div class="banner-right">
+            <img
+              src="images/banner-cmyk.svg"
+              alt="Banner Image"
+              class="banner-img"
+            />
+          </div>
+        </div>
+      </section>
 
-      let omzet = 0, laba_bersih = 0, bagi_hasil_anwar = 0, bagi_hasil_suri = 0, bagi_hasil_gemi = 0;
+      <section id="about" class="section">
+        <h1>About Us</h1>
+        <p>About content here...</p>
+      </section>
 
-      if (existing && existing.length > 0) {
-        omzet = parseFloat(existing[0].omzet) || 0;
-        laba_bersih = parseFloat(existing[0].laba_bersih) || 0;
-        bagi_hasil_anwar = parseFloat(existing[0].bagi_hasil_anwar) || 0;
-        bagi_hasil_suri = parseFloat(existing[0].bagi_hasil_suri) || 0;
-        bagi_hasil_gemi = parseFloat(existing[0].bagi_hasil_gemi) || 0;
-      }
+      <section id="mission" class="section">
+        <h2>Our Mission</h2>
+        <p>Mission content here...</p>
+      </section>
 
-      // Logika khusus kategori OMZET
-      if (kategori === "OMZET" && debit > 0) {
-        omzet += debit;
-        laba_bersih = omzet / 3;
-        bagi_hasil_anwar = laba_bersih;
-        bagi_hasil_suri = laba_bersih;
-        bagi_hasil_gemi = laba_bersih;
-      }
+      <section id="product" class="section">
+        <h2>Our Product</h2>
+        <p>Product content here...</p>
+      </section>
 
-      // Insert ke tabel
-      const { data, error } = await supabase
-        .from("keuangan")
-        .insert([{
-          tanggal,
-          debit,
-          kredit,
-          kategori,
-          keperluan,
-          omzet,
-          laba_bersih,
-          bagi_hasil_anwar,
-          bagi_hasil_suri,
-          bagi_hasil_gemi
-        }]);
+      <section id="machines" class="section">
+        <h2>Our Machines</h2>
+        <p>Machines content here...</p>
+      </section>
 
-      if (error) {
-        console.error(error);
-        alert("Gagal menyimpan data: " + error.message);
-      } else {
-        alert("Data berhasil disimpan!");
-        document.getElementById("keuanganForm").reset();
-      }
-    });
-  </script>
-</body>
+      <section id="testimonials" class="section">
+        <h1>Testimonials</h1>
+        <p>Testimonials content here...</p>
+      </section>
+
+      <section id="how-it-works" class="section">
+        <h1>How it Works</h1>
+        <p>How it works content here...</p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
 </html>
