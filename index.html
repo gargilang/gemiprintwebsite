@@ -3,146 +3,381 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GEMIPRINT</title>
+    <title>GemiPrint - Professional Digital Printing Solutions</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Navigation Bar -->
+    <!-- Navigation -->
     <nav class="navbar">
-      <div class="nav-container">
-        <!-- Company logo + Name -->
-        <div class="nav-logo">
-          <a href="#home" class="nav-logo-link">
-            <img
-              src="images/logo-navbar-default.svg"
-              alt="Company Logo"
-              class="logo-img"
-            />
-            <span class="company-name">GEMIPRINT</span>
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="#" class="logo">
+            <img src="images/logo-navbar-default.svg" alt="GemiPrint Logo" />
           </a>
-        </div>
-
-        <!-- Desktop Navigation Menu -->
-        <div class="nav-menu">
-          <a href="#home" class="nav-link">Home</a>
-
-          <!-- About Us Dropdown -->
-          <div class="dropdown">
-            <a href="#about" class="nav-link">About Us</a>
-            <div class="dropdown-content">
-              <a href="#mission">Our Mission</a>
-              <a href="#product">Our Product</a>
-              <a href="#machines">Our Machines</a>
-            </div>
-          </div>
-
-          <a href="#testimonials" class="nav-link">Testimonials</a>
-          <a href="#how-it-works" class="nav-link">How it Works</a>
-
-          <!-- Language Selector -->
-          <div class="dropdown language-selector">
-            <div class="nav-link language-toggle">
-              <span class="language-icon">🌐</span>
-              <span class="language-text">EN</span>
-            </div>
-            <div class="dropdown-content">
-              <a href="#" data-lang="en">EN</a>
-              <a href="#" data-lang="id">ID</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile Hamburger Menu -->
-        <div class="hamburger">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-      </div>
-
-      <!-- Mobile Side Menu -->
-      <div class="mobile-menu">
-        <div class="mobile-menu-header">
-          <img src="logo.png" alt="Company Logo" class="mobile-logo" />
-        </div>
-        <div class="mobile-nav-links">
-          <a href="#home" class="mobile-nav-link">Home</a>
-          <div class="mobile-dropdown">
-            <a href="#about" class="mobile-nav-link mobile-dropdown-toggle"
-              >About Us</a
-            >
-            <div class="mobile-dropdown-content">
-              <a href="#mission" class="mobile-sub-link">Our Mission</a>
-              <a href="#product" class="mobile-sub-link">Our Product</a>
-              <a href="#machines" class="mobile-sub-link">Our Machines</a>
-            </div>
-          </div>
-          <a href="#testimonials" class="mobile-nav-link">Testimonials</a>
-          <a href="#how-it-works" class="mobile-nav-link">How it Works</a>
-          <div class="mobile-language">
-            <span class="mobile-lang-label">Language:</span>
-            <a href="#" class="mobile-lang-option" data-lang="en">EN</a>
-            <a href="#" class="mobile-lang-option" data-lang="id">ID</a>
-          </div>
+          <ul class="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#machines">Machines</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact" class="btn-contact">Contact Us</a></li>
+          </ul>
+          <button class="mobile-menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- ================= BANNER SECTION ================= -->
-      <section id="home" class="banner-section">
-        <div class="banner-bg">
-          <!-- ===== Banner Content (Flex) ===== -->
-          <div class="banner-left">
-            <h1 class="banner-title">Lorem Ipsum Dolor Sit Amet</h1>
-            <p class="banner-subbody">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              fermentum, nunc at dictum rhoncus, urna erat lacinia erat, ac
-              porta erat augue nec neque.
-            </p>
-            <button class="order-btn">Order Now</button>
-          </div>
-          <div class="banner-right">
-            <img
-              src="images/banner-cmyk.svg"
-              alt="Banner Image"
-              class="banner-img"
-            />
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Transform Your Vision Into
+            <span class="highlight">Print Perfection</span>
+          </h1>
+          <p class="hero-subtitle">
+            Premium digital printing solutions powered by cutting-edge
+            technology and decades of expertise
+          </p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">Get Started</a>
+            <a href="#services" class="btn btn-secondary">Our Services</a>
           </div>
         </div>
-      </section>
+        <div class="hero-visual">
+          <img
+            src="images/banner-cmyk.svg"
+            alt="CMYK Banner"
+            class="cmyk-banner"
+          />
+        </div>
+      </div>
+    </section>
 
-      <section id="about" class="section">
-        <h1>About Us</h1>
-        <p>About content here...</p>
-      </section>
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-header">
+          <h2>Why Choose GemiPrint?</h2>
+          <p>Excellence in every detail, precision in every print</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img src="images/welisten.svg" alt="We Listen" />
+            </div>
+            <h3>We Listen</h3>
+            <p>
+              Understanding your unique printing needs through dedicated
+              consultation and personalized service
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img src="images/weoffer.svg" alt="We Offer" />
+            </div>
+            <h3>We Offer</h3>
+            <p>
+              Comprehensive printing solutions tailored to your specifications
+              with competitive pricing
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img src="images/wedeliver.svg" alt="We Deliver" />
+            </div>
+            <h3>We Deliver</h3>
+            <p>
+              On-time delivery with guaranteed quality that exceeds expectations
+              every single time
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="mission" class="section">
-        <h2>Our Mission</h2>
-        <p>Mission content here...</p>
-      </section>
+    <!-- Services Section -->
+    <section id="services" class="services">
+      <div class="container">
+        <div class="section-header">
+          <h2>Our Services</h2>
+          <p>Comprehensive printing solutions for all your needs</p>
+        </div>
+        <div class="services-grid">
+          <div class="service-item">
+            <div class="service-number">01</div>
+            <h3>Large Format Printing</h3>
+            <p>
+              High-quality banners, posters, and signage for impactful visual
+              communication
+            </p>
+          </div>
+          <div class="service-item">
+            <div class="service-number">02</div>
+            <h3>Digital Textile Printing</h3>
+            <p>
+              Vibrant fabric printing for fashion, home decor, and promotional
+              materials
+            </p>
+          </div>
+          <div class="service-item">
+            <div class="service-number">03</div>
+            <h3>UV Printing</h3>
+            <p>
+              Direct-to-substrate printing on virtually any material with
+              stunning results
+            </p>
+          </div>
+          <div class="service-item">
+            <div class="service-number">04</div>
+            <h3>Photo Printing</h3>
+            <p>
+              Professional-grade photo reproduction with exceptional color
+              accuracy
+            </p>
+          </div>
+          <div class="service-item">
+            <div class="service-number">05</div>
+            <h3>Commercial Printing</h3>
+            <p>
+              Business cards, brochures, and marketing materials that make an
+              impression
+            </p>
+          </div>
+          <div class="service-item">
+            <div class="service-number">06</div>
+            <h3>Custom Solutions</h3>
+            <p>
+              Specialized printing services designed to meet your unique
+              requirements
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="product" class="section">
-        <h2>Our Product</h2>
-        <p>Product content here...</p>
-      </section>
+    <!-- Machines Section -->
+    <section id="machines" class="machines">
+      <div class="container">
+        <div class="section-header">
+          <h2>State-of-the-Art Equipment</h2>
+          <p>Industry-leading technology for superior results</p>
+        </div>
+        <div class="machines-grid">
+          <div class="machine-card">
+            <div class="machine-image">
+              <img src="images/machine01.png" alt="Machine 1" />
+            </div>
+            <div class="machine-info">
+              <h3>HP Latex Series</h3>
+              <p>
+                Eco-friendly wide-format printing with exceptional color quality
+                and durability
+              </p>
+            </div>
+          </div>
+          <div class="machine-card">
+            <div class="machine-image">
+              <img src="images/machine02.png" alt="Machine 2" />
+            </div>
+            <div class="machine-info">
+              <h3>Roland DG VersaUV</h3>
+              <p>
+                Advanced UV printing technology for direct-to-object
+                applications
+              </p>
+            </div>
+          </div>
+          <div class="machine-card">
+            <div class="machine-image">
+              <img src="images/machine03.png" alt="Machine 3" />
+            </div>
+            <div class="machine-info">
+              <h3>Epson SureColor</h3>
+              <p>
+                Professional photo and fine art printing with stunning detail
+              </p>
+            </div>
+          </div>
+          <div class="machine-card">
+            <div class="machine-image">
+              <img src="images/machine04.png" alt="Machine 4" />
+            </div>
+            <div class="machine-info">
+              <h3>Kornit Digital</h3>
+              <p>High-speed digital textile printing for fashion and apparel</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="machines" class="section">
-        <h2>Our Machines</h2>
-        <p>Machines content here...</p>
-      </section>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2>What Our Clients Say</h2>
+          <p>Trusted by businesses across industries</p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-image">
+              <img src="images/testimoni01.png" alt="Client 1" />
+            </div>
+            <p class="testimonial-text">
+              "GemiPrint delivered exceptional quality on our large-format
+              banners. Their attention to detail and quick turnaround time
+              exceeded our expectations."
+            </p>
+            <div class="testimonial-author">
+              <h4>Sarah Johnson</h4>
+              <span>Marketing Director, TechCorp</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-image">
+              <img src="images/testimoni02.png" alt="Client 2" />
+            </div>
+            <p class="testimonial-text">
+              "The UV printing service is fantastic! We've been able to expand
+              our product line thanks to their versatility and expert guidance."
+            </p>
+            <div class="testimonial-author">
+              <h4>Michael Chen</h4>
+              <span>Owner, Creative Studios</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-image">
+              <img src="images/testimoni03.png" alt="Client 3" />
+            </div>
+            <p class="testimonial-text">
+              "Professional, reliable, and always delivering top-notch results.
+              GemiPrint is our go-to partner for all printing needs."
+            </p>
+            <div class="testimonial-author">
+              <h4>Emily Rodriguez</h4>
+              <span>Event Coordinator, EventsPro</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-image">
+              <img src="images/testimoni04.png" alt="Client 4" />
+            </div>
+            <p class="testimonial-text">
+              "Outstanding quality and service! The textile printing for our
+              fashion line was perfect, and the color accuracy was impressive."
+            </p>
+            <div class="testimonial-author">
+              <h4>David Park</h4>
+              <span>Fashion Designer, Park Designs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="testimonials" class="section">
-        <h1>Testimonials</h1>
-        <p>Testimonials content here...</p>
-      </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2>Get In Touch</h2>
+          <p>Ready to bring your vision to life? Contact us today</p>
+        </div>
+        <div class="contact-wrapper">
+          <div class="contact-info">
+            <div class="info-item">
+              <h3>Address</h3>
+              <p>
+                123 Print Street<br />Business District<br />City, State 12345
+              </p>
+            </div>
+            <div class="info-item">
+              <h3>Phone</h3>
+              <p>+1 (555) 123-4567</p>
+            </div>
+            <div class="info-item">
+              <h3>Email</h3>
+              <p>info@gemiprint.com</p>
+            </div>
+            <div class="info-item">
+              <h3>Hours</h3>
+              <p>
+                Monday - Friday: 9AM - 6PM<br />Saturday: 10AM - 4PM<br />Sunday:
+                Closed
+              </p>
+            </div>
+          </div>
+          <form class="contact-form">
+            <div class="form-group">
+              <input type="text" id="name" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input
+                type="email"
+                id="email"
+                placeholder="Your Email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input type="tel" id="phone" placeholder="Phone Number" />
+            </div>
+            <div class="form-group">
+              <textarea
+                id="message"
+                rows="5"
+                placeholder="Tell us about your project"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
 
-      <section id="how-it-works" class="section">
-        <h1>How it Works</h1>
-        <p>How it works content here...</p>
-      </section>
-    </main>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <img src="images/logo-gemiprint-white.svg" alt="GemiPrint Logo" />
+            <p>Professional digital printing solutions since 2000</p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#machines">Equipment</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#services">Large Format</a></li>
+              <li><a href="#services">Textile Printing</a></li>
+              <li><a href="#services">UV Printing</a></li>
+              <li><a href="#services">Photo Printing</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h4>Contact</h4>
+            <p>+1 (555) 123-4567</p>
+            <p>info@gemiprint.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 GemiPrint. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
 
     <script src="script.js"></script>
   </body>

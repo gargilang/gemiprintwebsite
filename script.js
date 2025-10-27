@@ -1,74 +1,44 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const hamburger = document.querySelector(".hamburger");
-  const mobileMenu = document.querySelector(".mobile-menu");
-  const mobileDropdownToggle = document.querySelector(
-    ".mobile-dropdown-toggle"
-  );
-  const mobileDropdownContent = document.querySelector(
-    ".mobile-dropdown-content"
-  );
-
-  // Create overlay for mobile menu
-  const overlay = document.createElement("div");
-  overlay.classList.add("overlay");
-  document.body.appendChild(overlay);
-
-  // Hamburger menu toggle
-  hamburger.addEventListener("click", function () {
-    hamburger.classList.toggle("active");
-    mobileMenu.classList.toggle("active");
-    overlay.classList.toggle("active");
-    document.body.style.overflow = mobileMenu.classList.contains("active")
-      ? "hidden"
-      : "auto";
+// Mobile navigation toggle
+const toggle = document.querySelector(".mobile-menu-toggle");
+const menu = document.querySelector(".nav-menu");
+if (toggle && menu) {
+  toggle.addEventListener("click", () => {
+    menu.classList.toggle("open");
   });
+}
 
-  // Close mobile menu when clicking overlay
-  overlay.addEventListener("click", function () {
-    hamburger.classList.remove("active");
-    mobileMenu.classList.remove("active");
-    overlay.classList.remove("active");
-    document.body.style.overflow = "auto";
-  });
-
-  // Mobile dropdown toggle
-  if (mobileDropdownToggle && mobileDropdownContent) {
-    mobileDropdownToggle.addEventListener("click", function (e) {
-      e.preventDefault();
-      mobileDropdownContent.classList.toggle("active");
-    });
+// Smooth scroll for internal links
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const id = a.getAttribute("href");
+  const el = document.querySelector(id);
+  if (el) {
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    menu && menu.classList.remove("open");
   }
-
-  // Close mobile menu when clicking navigation links
-  const mobileNavLinks = document.querySelectorAll(
-    ".mobile-nav-link, .mobile-sub-link"
-  );
-  mobileNavLinks.forEach((link) => {
-    link.addEventListener("click", function () {
-      if (!this.classList.contains("mobile-dropdown-toggle")) {
-        hamburger.classList.remove("active");
-        mobileMenu.classList.remove("active");
-        overlay.classList.remove("active");
-        document.body.style.overflow = "auto";
-      }
-    });
-  });
-
-  // Smooth scrolling for anchor links
-  const allLinks = document.querySelectorAll('a[href^="#"]');
-  allLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute("href");
-      const targetSection = document.querySelector(targetId);
-
-      if (targetSection) {
-        const offsetTop = targetSection.offsetTop - 60; // Account for fixed navbar
-        window.scrollTo({
-          top: offsetTop,
-          behavior: "smooth",
-        });
-      }
-    });
-  });
 });
+
+// Simple form handler
+const form = document.querySelector(".contact-form");
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = /** @type {HTMLInputElement} */ (
+      document.getElementById("name")
+    )?.value.trim();
+    const email = /** @type {HTMLInputElement} */ (
+      document.getElementById("email")
+    )?.value.trim();
+    const message = /** @type {HTMLTextAreaElement} */ (
+      document.getElementById("message")
+    )?.value.trim();
+    if (!name || !email || !message) {
+      alert("Please fill in your name, email, and message.");
+      return;
+    }
+    alert("Thank you! Your message has been sent.");
+    form.reset();
+  });
+}
