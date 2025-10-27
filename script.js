@@ -145,7 +145,7 @@ window.addEventListener(
     if (window.innerWidth <= 768) {
       // Show navigation when scrolling (user is navigating)
       quickNav.classList.remove("hide-on-scroll");
-      
+
       // Hide after user stops scrolling (idle = reading, hide for 1.5s)
       clearTimeout(scrollHideTimeout);
       scrollHideTimeout = setTimeout(() => {
@@ -208,10 +208,11 @@ let currentTestimonialIndex = 0;
 function showNextTestimonial() {
   // Remove active from current
   testimonialSlides[currentTestimonialIndex].classList.remove("active");
-  
+
   // Move to next slide (loop back to 0 if at end)
-  currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonialSlides.length;
-  
+  currentTestimonialIndex =
+    (currentTestimonialIndex + 1) % testimonialSlides.length;
+
   // Add active to next (triggers rubber animation)
   testimonialSlides[currentTestimonialIndex].classList.add("active");
 }
