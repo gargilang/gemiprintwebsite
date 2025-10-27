@@ -127,6 +127,10 @@ quickNavItems.forEach((item) => {
 
 // Update on scroll with throttling for performance
 let scrollTimeout;
+let lastScrollTop = 0;
+let scrollHideTimeout;
+const quickNav = document.querySelector(".quick-nav");
+
 window.addEventListener(
   "scroll",
   () => {
@@ -136,9 +140,83 @@ window.addEventListener(
     scrollTimeout = setTimeout(() => {
       updateActiveNav();
     }, 10);
+
+    // Auto-hide sidebar when idle (mobile only)
+    if (window.innerWidth <= 768) {
+      // Show navigation when scrolling (user is navigating)
+      quickNav.classList.remove("hide-on-scroll");
+      
+      // Hide after user stops scrolling (idle = reading, hide for 1.5s)
+      clearTimeout(scrollHideTimeout);
+      scrollHideTimeout = setTimeout(() => {
+        quickNav.classList.add("hide-on-scroll");
+      }, 1500);
+    } else {
+      // Always show on tablet/desktop
+      quickNav.classList.remove("hide-on-scroll");
+    }
   },
   { passive: true }
 );
 
 // Initial check
 updateActiveNav();
+
+// Initially hide on mobile after 1.5 seconds (user starts reading)
+if (window.innerWidth <= 768) {
+  setTimeout(() => {
+    quickNav.classList.add("hide-on-scroll");
+  }, 1500);
+}
+
+// Handle window resize - ensure sidebar visible on larger screens
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768) {
+    quickNav.classList.remove("hide-on-scroll");
+  }
+});
+
+// Machines Carousel Navigation
+const machineSlides = document.querySelectorAll(".machine-slide");
+const machineNavBtns = document.querySelectorAll(".machine-nav-btn");
+
+function showMachineSlide(targetMachine) {
+  machineSlides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
+
+  const targetSlide = document.querySelector(
+    `.machine-slide[data-machine="${targetMachine}"]`
+  );
+  if (targetSlide) {
+    targetSlide.classList.add("active");
+  }
+}
+
+machineNavBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const targetMachine = btn.getAttribute("data-target");
+    showMachineSlide(targetMachine);
+  });
+});
+
+// Testimonials Auto-Slider with Quick Rubber Effect
+const testimonialSlides = document.querySelectorAll(".testimonial-slide");
+let currentTestimonialIndex = 0;
+
+function showNextTestimonial() {
+  // Remove active from current
+  testimonialSlides[currentTestimonialIndex].classList.remove("active");
+  
+  // Move to next slide (loop back to 0 if at end)
+  currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonialSlides.length;
+  
+  // Add active to next (triggers rubber animation)
+  testimonialSlides[currentTestimonialIndex].classList.add("active");
+}
+
+// Auto-advance every 4 seconds
+if (testimonialSlides.length > 0) {
+  setInterval(showNextTestimonial, 4000);
+}

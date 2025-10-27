@@ -219,50 +219,36 @@
           <h2>State-of-the-Art Equipment</h2>
           <p>Industry-leading technology for superior results</p>
         </div>
-        <div class="machines-grid">
-          <div class="machine-card">
-            <div class="machine-image">
-              <img src="images/machine01.png" alt="Machine 1" />
-            </div>
-            <div class="machine-info">
-              <h3>HP Latex Series</h3>
-              <p>
-                Eco-friendly wide-format printing with exceptional color quality
-                and durability
-              </p>
-            </div>
+        <div class="machines-slider">
+          <div class="machine-slide active" data-machine="1">
+            <img src="images/machine01.png" alt="HP Latex Series" />
+            <button class="machine-nav-btn machine-nav-right" data-target="2" aria-label="Next machine">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
           </div>
-          <div class="machine-card">
-            <div class="machine-image">
-              <img src="images/machine02.png" alt="Machine 2" />
-            </div>
-            <div class="machine-info">
-              <h3>Roland DG VersaUV</h3>
-              <p>
-                Advanced UV printing technology for direct-to-object
-                applications
-              </p>
-            </div>
+          <div class="machine-slide" data-machine="2">
+            <img src="images/machine02.png" alt="Roland DG VersaUV" />
+            <button class="machine-nav-btn machine-nav-left" data-target="1" aria-label="Previous machine">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="machine-nav-btn machine-nav-right" data-target="3" aria-label="Next machine">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
           </div>
-          <div class="machine-card">
-            <div class="machine-image">
-              <img src="images/machine03.png" alt="Machine 3" />
-            </div>
-            <div class="machine-info">
-              <h3>Epson SureColor</h3>
-              <p>
-                Professional photo and fine art printing with stunning detail
-              </p>
-            </div>
+          <div class="machine-slide" data-machine="3">
+            <img src="images/machine03.png" alt="Epson SureColor" />
+            <button class="machine-nav-btn machine-nav-left" data-target="2" aria-label="Previous machine">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="machine-nav-btn machine-nav-right" data-target="4" aria-label="Next machine">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
           </div>
-          <div class="machine-card">
-            <div class="machine-image">
-              <img src="images/machine04.png" alt="Machine 4" />
-            </div>
-            <div class="machine-info">
-              <h3>Kornit Digital</h3>
-              <p>High-speed digital textile printing for fashion and apparel</p>
-            </div>
+          <div class="machine-slide" data-machine="4">
+            <img src="images/machine04.png" alt="Kornit Digital" />
+            <button class="machine-nav-btn machine-nav-left" data-target="3" aria-label="Previous machine">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -275,59 +261,18 @@
           <h2>What Our Clients Say</h2>
           <p>Trusted by businesses across industries</p>
         </div>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <div class="testimonial-image">
-              <img src="images/testimoni01.png" alt="Client 1" />
-            </div>
-            <p class="testimonial-text">
-              "GemiPrint delivered exceptional quality on our large-format
-              banners. Their attention to detail and quick turnaround time
-              exceeded our expectations."
-            </p>
-            <div class="testimonial-author">
-              <h4>Sarah Johnson</h4>
-              <span>Marketing Director, TechCorp</span>
-            </div>
+        <div class="testimonials-slider">
+          <div class="testimonial-slide active" data-testimonial="1">
+            <img src="images/testimoni01.png" alt="Client 1" />
           </div>
-          <div class="testimonial-card">
-            <div class="testimonial-image">
-              <img src="images/testimoni02.png" alt="Client 2" />
-            </div>
-            <p class="testimonial-text">
-              "The UV printing service is fantastic! We've been able to expand
-              our product line thanks to their versatility and expert guidance."
-            </p>
-            <div class="testimonial-author">
-              <h4>Michael Chen</h4>
-              <span>Owner, Creative Studios</span>
-            </div>
+          <div class="testimonial-slide" data-testimonial="2">
+            <img src="images/testimoni02.png" alt="Client 2" />
           </div>
-          <div class="testimonial-card">
-            <div class="testimonial-image">
-              <img src="images/testimoni03.png" alt="Client 3" />
-            </div>
-            <p class="testimonial-text">
-              "Professional, reliable, and always delivering top-notch results.
-              GemiPrint is our go-to partner for all printing needs."
-            </p>
-            <div class="testimonial-author">
-              <h4>Emily Rodriguez</h4>
-              <span>Event Coordinator, EventsPro</span>
-            </div>
+          <div class="testimonial-slide" data-testimonial="3">
+            <img src="images/testimoni03.png" alt="Client 3" />
           </div>
-          <div class="testimonial-card">
-            <div class="testimonial-image">
-              <img src="images/testimoni04.png" alt="Client 4" />
-            </div>
-            <p class="testimonial-text">
-              "Outstanding quality and service! The textile printing for our
-              fashion line was perfect, and the color accuracy was impressive."
-            </p>
-            <div class="testimonial-author">
-              <h4>David Park</h4>
-              <span>Fashion Designer, Park Designs</span>
-            </div>
+          <div class="testimonial-slide" data-testimonial="4">
+            <img src="images/testimoni04.png" alt="Client 4" />
           </div>
         </div>
       </div>
@@ -345,22 +290,21 @@
             <div class="info-item">
               <h3>Address</h3>
               <p>
-                123 Print Street<br />Business District<br />City, State 12345
+                Cifest Walk,<br />Ruko Pasadena Blok RA No 18,<br />Cikarang Selatan, Kabupaten Bekasi,<br />Jawa Barat 17530
               </p>
             </div>
             <div class="info-item">
               <h3>Phone</h3>
-              <p>+1 (555) 123-4567</p>
+              <p>+62 812 3456 0525</p>
             </div>
             <div class="info-item">
               <h3>Email</h3>
-              <p>info@gemiprint.com</p>
+              <p>cs@gemiprint.com</p>
             </div>
             <div class="info-item">
               <h3>Hours</h3>
               <p>
-                Monday - Friday: 9AM - 6PM<br />Saturday: 10AM - 4PM<br />Sunday:
-                Closed
+                Monday - Saturday: 8AM - 8PM<br />Sunday: 9AM - 8PM
               </p>
             </div>
           </div>
@@ -399,7 +343,7 @@
         <div class="footer-content">
           <div class="footer-logo">
             <img src="images/logo-gemiprint-white.svg" alt="GemiPrint Logo" />
-            <p>Professional digital printing solutions since 2000</p>
+            <p>Professional digital printing solutions since 2023</p>
           </div>
           <div class="footer-links">
             <h4>Quick Links</h4>
@@ -421,8 +365,8 @@
           </div>
           <div class="footer-contact">
             <h4>Contact</h4>
-            <p>+1 (555) 123-4567</p>
-            <p>info@gemiprint.com</p>
+            <p>+62 812 3456 0525</p>
+            <p>cs@gemiprint.com</p>
           </div>
         </div>
         <div class="footer-bottom">
