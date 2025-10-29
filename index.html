@@ -178,29 +178,30 @@
             <span></span>
           </button>
           <a href="#home" class="logo">
-            <img src="images/logo-navbar-default.svg" alt="GemiPrint Logo" />
+            <img src="images/logo-navbar-default.svg" alt="gemiprint Logo" />
             <span class="brand-text"
               ><span class="brand-gemi">gemi</span
               ><span class="brand-print">print</span></span
             >
           </a>
           <ul class="nav-menu">
-            <li><a href="#home">Home</a></li>
+            <li><a href="#home" data-i18n="nav.home">Home</a></li>
             <li class="nav-dropdown">
               <a href="#about" class="dropdown-toggle">
-                About Us
+                <span data-i18n="nav.about">About Us</span>
                 <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="#about">Our Mission</a></li>
-                <li><a href="#services">Our Products</a></li>
-                <li><a href="#machines">Our Machines</a></li>
+                <li><a href="#about" data-i18n="nav.ourMission">Our Mission</a></li>
+                <li><a href="#services" data-i18n="nav.ourProducts">Our Products</a></li>
+                <li><a href="#machines" data-i18n="nav.ourMachines">Our Machines</a></li>
+                <li><a href="#procedures" data-i18n="nav.ourProcedures">Our Procedures</a></li>
               </ul>
             </li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact" class="btn-contact">Contact Us</a></li>
+            <li><a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a></li>
+            <li><a href="#contact" class="btn-contact" data-i18n="nav.contact">Contact Us</a></li>
           </ul>
           <div class="nav-controls">
             <!-- Theme Toggle Slider -->
@@ -217,12 +218,13 @@
               </div>
             </button>
             
-            <!-- Language Selector (for future use) -->
-            <button class="language-toggle" aria-label="Change language" disabled title="Coming soon">
-              <span class="lang-active">EN</span>
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Language Selector -->
+            <button class="language-toggle" aria-label="Change language">
+              <svg class="globe-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2"/>
               </svg>
+              <span class="lang-active">ID</span>
             </button>
           </div>
         </div>
@@ -235,22 +237,25 @@
 
     <!-- Quick Navigation Sidebar -->
     <div class="quick-nav">
-      <a href="#home" class="quick-nav-item" title="Home">
+      <a href="#home" class="quick-nav-item" data-i18n-title="nav.home" title="Home">
         <img src="images/ico-logo-whitenavy.svg" alt="Home">
       </a>
-      <a href="#about" class="quick-nav-item" title="Our Mission">
+      <a href="#about" class="quick-nav-item" data-i18n-title="nav.ourMission" title="Our Mission">
         <img src="images/ico-misi.svg" alt="Our Mission">
       </a>
-      <a href="#services" class="quick-nav-item" title="Our Products">
+      <a href="#services" class="quick-nav-item" data-i18n-title="nav.ourProducts" title="Our Products">
         <img src="images/ico-product.svg" alt="Our Products">
       </a>
-      <a href="#machines" class="quick-nav-item" title="Our Machines">
+      <a href="#machines" class="quick-nav-item" data-i18n-title="nav.ourMachines" title="Our Machines">
         <img src="images/ico-printer.svg" alt="Our Machines">
       </a>
-      <a href="#testimonials" class="quick-nav-item" title="Testimonials">
+      <a href="#procedures" class="quick-nav-item" data-i18n-title="nav.ourProcedures" title="Our Procedures">
+        <img src="images/ico-step.svg" alt="Our Procedures">
+      </a>
+      <a href="#testimonials" class="quick-nav-item" data-i18n-title="nav.testimonials" title="Testimonials">
         <img src="images/ico-testi.svg" alt="Testimonials">
       </a>
-      <a href="#contact" class="quick-nav-item" title="Contact Us">
+      <a href="#contact" class="quick-nav-item" data-i18n-title="nav.contact" title="Contact Us">
         <img src="images/ico-contact.svg" alt="Contact Us">
       </a>
       <a href="https://wa.me/6281234560525" target="_blank" class="quick-nav-item quick-nav-whatsapp" title="WhatsApp">
@@ -263,16 +268,16 @@
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">
-            Your Partner in Printing and
-            <span class="highlight">Powerful Promotions</span>
+            <span data-i18n="hero.title1">Your Partner in Printing and</span>
+            <span class="highlight" data-i18n="hero.title2">Powerful Promotions</span>
           </h1>
-          <p class="hero-subtitle">
+          <p class="hero-subtitle" data-i18n="hero.subtitle">
             Delivering high-quality printing and promotional solutions that help
             your business make a lasting impression. From business cards to
             banners, we turn your ideas into results that speak for your brand.
           </p>
           <div class="hero-cta">
-            <a href="#contact" class="btn btn-primary">Get Started</a>
+            <a href="#contact" class="btn btn-primary" data-i18n="hero.cta">Get Started</a>
           </div>
         </div>
         <div class="hero-visual">
@@ -290,17 +295,17 @@
       <div class="container">
         <div class="section-header">
           <h2>
-            Why Choose
+            <span data-i18n="about.title1">Why Choose</span>
             <span class="logo brand-inline">
-              <img src="images/logo-navbar-default.svg" alt="GemiPrint Logo" />
+              <img src="images/logo-navbar-default.svg" alt="gemiprint Logo" />
               <span class="brand-text"
                 ><span class="brand-gemi">gemi</span
                 ><span class="brand-print">print</span></span
               >
             </span>
-            ?
+            <span data-i18n="about.title2">?</span>
           </h2>
-          <p>
+          <p data-i18n="about.subtitle">
             Our mission is to empower brands through reliable, creative, and
             affordable printing solutions
           </p>
@@ -310,8 +315,8 @@
             <div class="feature-icon">
               <img src="images/welisten.svg" alt="Konsultasi percetakan profesional - Layanan terbaik gemiprint Cikarang" />
             </div>
-            <h3>Best Service</h3>
-            <p>
+            <h3 data-i18n="about.card1.title">Best Service</h3>
+            <p data-i18n="about.card1.text">
               Understanding your unique printing needs through dedicated
               consultation and personalized service
             </p>
@@ -320,8 +325,8 @@
             <div class="feature-icon">
               <img src="images/weoffer.svg" alt="Harga percetakan terjangkau - Cetak murah berkualitas di Cikarang" />
             </div>
-            <h3>Best Price</h3>
-            <p>
+            <h3 data-i18n="about.card2.title">Best Price</h3>
+            <p data-i18n="about.card2.text">
               Comprehensive printing solutions tailored to your specifications
               with competitive pricing
             </p>
@@ -330,8 +335,8 @@
             <div class="feature-icon">
               <img src="images/wedeliver.svg" alt="Pengerjaan cepat dan tepat waktu - Hasil cetak berkualitas tinggi" />
             </div>
-            <h3>Top-Quality Printing</h3>
-            <p>
+            <h3 data-i18n="about.card3.title">Top-Quality Printing</h3>
+            <p data-i18n="about.card3.text">
               On-time delivery with guaranteed quality that exceeds expectations
               every single time
             </p>
@@ -344,54 +349,54 @@
     <section id="services" class="services">
       <div class="container">
         <div class="section-header">
-          <h2>Our Services</h2>
-          <p>Comprehensive printing solutions for all your needs</p>
+          <h2 data-i18n="services.title">Our Services</h2>
+          <p data-i18n="services.subtitle">Comprehensive printing solutions for all your needs</p>
         </div>
         <div class="services-grid">
           <div class="service-item">
             <div class="service-number">01</div>
-            <h3>Large Format Printing</h3>
-            <p>
+            <h3 data-i18n="services.item1.title">Large Format Printing</h3>
+            <p data-i18n="services.item1.text">
               High-quality banners, posters, and signage for impactful visual
               communication
             </p>
           </div>
           <div class="service-item">
             <div class="service-number">02</div>
-            <h3>Digital Textile Printing</h3>
-            <p>
+            <h3 data-i18n="services.item2.title">Digital Textile Printing</h3>
+            <p data-i18n="services.item2.text">
               Vibrant fabric printing for fashion, home decor, and promotional
               materials
             </p>
           </div>
           <div class="service-item">
             <div class="service-number">03</div>
-            <h3>UV Printing</h3>
-            <p>
+            <h3 data-i18n="services.item3.title">UV Printing</h3>
+            <p data-i18n="services.item3.text">
               Direct-to-substrate printing on virtually any material with
               stunning results
             </p>
           </div>
           <div class="service-item">
             <div class="service-number">04</div>
-            <h3>Photo Printing</h3>
-            <p>
+            <h3 data-i18n="services.item4.title">Photo Printing</h3>
+            <p data-i18n="services.item4.text">
               Professional-grade photo reproduction with exceptional color
               accuracy
             </p>
           </div>
           <div class="service-item">
             <div class="service-number">05</div>
-            <h3>Commercial Printing</h3>
-            <p>
+            <h3 data-i18n="services.item5.title">Commercial Printing</h3>
+            <p data-i18n="services.item5.text">
               Business cards, brochures, and marketing materials that make an
               impression
             </p>
           </div>
           <div class="service-item">
             <div class="service-number">06</div>
-            <h3>Custom Solutions</h3>
-            <p>
+            <h3 data-i18n="services.item6.title">Custom Solutions</h3>
+            <p data-i18n="services.item6.text">
               Specialized printing services designed to meet your unique
               requirements
             </p>
@@ -404,18 +409,18 @@
     <section id="machines" class="machines">
       <div class="container">
         <div class="section-header">
-          <h2>State-of-the-Art Equipment</h2>
-          <p>Industry-leading technology for superior results</p>
+          <h2 data-i18n="machines.title">State-of-the-Art Equipment</h2>
+          <p data-i18n="machines.subtitle">Industry-leading technology for superior results</p>
         </div>
         <div class="machines-slider">
           <div class="machine-slide active" data-machine="1">
-            <img src="images/machine01.png" alt="Mesin cetak HP Latex Series - Large format printing untuk spanduk dan banner" />
+            <img src="images/machine1.png" alt="Mesin cetak HP Latex Series - Large format printing untuk spanduk dan banner" />
             <button class="machine-nav-btn machine-nav-right" data-target="2" aria-label="Next machine">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
           </div>
           <div class="machine-slide" data-machine="2">
-            <img src="images/machine02.png" alt="Mesin cetak Roland DG VersaUV - UV printing untuk stiker dan media keras" />
+            <img src="images/machine2.png" alt="Mesin cetak Roland DG VersaUV - UV printing untuk stiker dan media keras" />
             <button class="machine-nav-btn machine-nav-left" data-target="1" aria-label="Previous machine">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
@@ -424,7 +429,7 @@
             </button>
           </div>
           <div class="machine-slide" data-machine="3">
-            <img src="images/machine03.png" alt="Mesin cetak Epson SureColor - Photo printing dan cetak foto berkualitas tinggi" />
+            <img src="images/machine3.png" alt="Mesin cetak Epson SureColor - Photo printing dan cetak foto berkualitas tinggi" />
             <button class="machine-nav-btn machine-nav-left" data-target="2" aria-label="Previous machine">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
@@ -433,8 +438,50 @@
             </button>
           </div>
           <div class="machine-slide" data-machine="4">
-            <img src="images/machine04.png" alt="Mesin cetak Kornit Digital - Textile printing untuk jersey dan kaos sablon" />
+            <img src="images/machine4.png" alt="Mesin cetak Kornit Digital - Textile printing untuk jersey dan kaos sablon" />
             <button class="machine-nav-btn machine-nav-left" data-target="3" aria-label="Previous machine">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Procedures Section -->
+    <section id="procedures" class="procedures">
+      <div class="container">
+        <div class="section-header">
+          <h2 data-i18n="procedures.title">Our Procedures</h2>
+          <p data-i18n="procedures.subtitle">Simple steps to bring your ideas to life</p>
+        </div>
+        <div class="procedures-slider">
+          <div class="procedure-slide active" data-procedure="1">
+            <img src="images/step1.svg" alt="Step 1 - Konsultasi proyek percetakan Anda" />
+            <button class="procedure-nav-btn procedure-nav-right" data-target="2" aria-label="Next step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div class="procedure-slide" data-procedure="2">
+            <img src="images/step2.svg" alt="Step 2 - Desain dan approval" />
+            <button class="procedure-nav-btn procedure-nav-left" data-target="1" aria-label="Previous step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="procedure-nav-btn procedure-nav-right" data-target="3" aria-label="Next step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div class="procedure-slide" data-procedure="3">
+            <img src="images/step3.svg" alt="Step 3 - Proses produksi berkualitas" />
+            <button class="procedure-nav-btn procedure-nav-left" data-target="2" aria-label="Previous step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="procedure-nav-btn procedure-nav-right" data-target="4" aria-label="Next step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div class="procedure-slide" data-procedure="4">
+            <img src="images/step4.svg" alt="Step 4 - Pengiriman tepat waktu" />
+            <button class="procedure-nav-btn procedure-nav-left" data-target="3" aria-label="Previous step">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
           </div>
@@ -446,8 +493,8 @@
     <section id="testimonials" class="testimonials">
       <div class="container">
         <div class="section-header">
-          <h2>What Our Clients Say</h2>
-          <p>Trusted by businesses across industries</p>
+          <h2 data-i18n="testimonials.title">What Our Clients Say</h2>
+          <p data-i18n="testimonials.subtitle">Trusted by businesses across industries</p>
         </div>
         
         <!-- Google Reviews Summary -->
@@ -462,10 +509,10 @@
             </div>
             <div class="rating-info">
               <span class="rating-score">4.9</span>
-              <span class="rating-text">Based on Google Reviews</span>
+              <span class="rating-text" data-i18n="testimonials.rating">Based on Google Reviews</span>
             </div>
           </div>
-          <a href="https://www.google.com/maps/place/Percetakan+gemiprint/@-6.3420567,107.1161491,17z/data=!4m8!3m7!1s0x2e699b2afa0c4475:0x98436d6859c9c48c!8m2!3d-6.3420567!4d107.118724!9m1!1b1!16s%2Fg%2F11wc3hpxb2" target="_blank" class="btn btn-review">
+          <a href="https://www.google.com/maps/place/Percetakan+gemiprint/@-6.3420567,107.1161491,17z/data=!4m8!3m7!1s0x2e699b2afa0c4475:0x98436d6859c9c48c!8m2!3d-6.3420567!4d107.118724!9m1!1b1!16s%2Fg%2F11wc3hpxb2" target="_blank" class="btn btn-review" data-i18n="testimonials.cta">
             Leave a Review
           </a>
         </div>
@@ -479,56 +526,73 @@
     <section id="contact" class="contact">
       <div class="container">
         <div class="section-header">
-          <h2>Get In Touch</h2>
-          <p>Ready to bring your vision to life? Contact us today</p>
+          <h2 data-i18n="contact.title">Get In Touch</h2>
+          <p data-i18n="contact.subtitle">Ready to bring your vision to life? Contact us today</p>
         </div>
         <div class="contact-wrapper">
           <div class="contact-info">
             <div class="info-item">
-              <h3>Address</h3>
+              <h3 data-i18n="contact.address">Address</h3>
               <p>
                 Cifest Walk,<br />Ruko Pasadena Blok RA No 18,<br />Cikarang Selatan, Kabupaten Bekasi,<br />Jawa Barat 17530
               </p>
             </div>
             <div class="info-item">
-              <h3>Phone</h3>
-              <p>+62 812 3456 0525</p>
+              <h3 data-i18n="contact.phone">Phone</h3>
+              <p><a href="https://wa.me/6281234560525" target="_blank" rel="noopener noreferrer" class="contact-link phone-link">+62 812 3456 0525</a></p>
             </div>
             <div class="info-item">
-              <h3>Email</h3>
-              <p>cs@gemiprint.com</p>
+              <h3 data-i18n="contact.email">Email</h3>
+              <p><a href="mailto:cs@gemiprint.com" class="contact-link email-link">cs@gemiprint.com</a></p>
             </div>
             <div class="info-item">
-              <h3>Hours</h3>
-              <p>
+              <h3 data-i18n="contact.hours">Hours</h3>
+              <p data-i18n="contact.hoursText">
                 Monday - Saturday: 8AM - 8PM<br />Sunday: 9AM - 8PM
               </p>
             </div>
           </div>
-          <form class="contact-form">
+          <form class="contact-form" id="contact-form">
             <div class="form-group">
-              <input type="text" id="name" placeholder="Your Name" required />
+              <input type="text" id="name" name="from_name" data-i18n-placeholder="contact.form.name" placeholder="Your Name *" required />
             </div>
             <div class="form-group">
               <input
                 type="email"
                 id="email"
-                placeholder="Your Email"
-                required
+                name="reply_to"
+                data-i18n-placeholder="contact.form.email"
+                placeholder="Your Email (optional)"
               />
             </div>
             <div class="form-group">
-              <input type="tel" id="phone" placeholder="Phone Number" />
+              <input type="tel" id="phone" name="phone" data-i18n-placeholder="contact.form.phone" placeholder="Phone Number *" required />
             </div>
             <div class="form-group">
               <textarea
                 id="message"
+                name="message"
                 rows="5"
-                placeholder="Tell us about your project"
+                data-i18n-placeholder="contact.form.message"
+                placeholder="Tell us about your project.&#10;We can collaborate on Canva too. *"
                 required
               ></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Send Message</button>
+            <div class="form-group">
+              <label for="attachments" class="file-upload-label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                </svg>
+                <span class="file-upload-text" data-i18n="contact.form.attach">Attach files (optional up to 10 MB)</span>
+                <span class="file-count"></span>
+              </label>
+              <input type="file" id="attachments" name="attachments" multiple accept="image/*,.pdf,.doc,.docx" />
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <span class="btn-text" data-i18n="contact.form.submit">Send Message</span>
+              <span class="btn-loader" data-i18n="contact.form.sending" style="display: none;">Sending...</span>
+            </button>
+            <p class="form-status"></p>
           </form>
         </div>
       </div>
@@ -540,38 +604,40 @@
         <div class="footer-content">
           <div class="footer-logo">
             <img src="images/logo-gemiprint-white.svg" alt="Logo gemiprint - Percetakan digital Cikarang Bekasi" />
-            <p>PT. GRAFIKA ESTETIKA MEDIA INTERNUSA<br /><br />Professional digital printing solutions in Cikarang, Bekasi since 2023</p>
+            <p>PT. GRAFIKA ESTETIKA MEDIA INTERNUSA<br /><span data-i18n="footer.tagline">Professional digital printing solutions in Cikarang, Bekasi since 2023</span></p>
           </div>
           <div class="footer-links">
-            <h4>Quick Links</h4>
+            <h4 data-i18n="footer.quickLinks">Quick Links</h4>
             <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#machines">Equipment</a></li>
+              <li><a href="#home" data-i18n="footer.link.home">Home</a></li>
+              <li><a href="#about" data-i18n="footer.link.about">About</a></li>
+              <li><a href="#services" data-i18n="footer.link.services">Services</a></li>
+              <li><a href="#machines" data-i18n="footer.link.equipment">Equipment</a></li>
             </ul>
           </div>
           <div class="footer-links">
-            <h4>Services</h4>
+            <h4 data-i18n="footer.services">Services</h4>
             <ul>
-              <li><a href="#services">Large Format</a></li>
-              <li><a href="#services">Textile Printing</a></li>
-              <li><a href="#services">UV Printing</a></li>
-              <li><a href="#services">Photo Printing</a></li>
+              <li><a href="#services" data-i18n="footer.service.largeFormat">Large Format</a></li>
+              <li><a href="#services" data-i18n="footer.service.textile">Textile Printing</a></li>
+              <li><a href="#services" data-i18n="footer.service.uv">UV Printing</a></li>
+              <li><a href="#services" data-i18n="footer.service.photo">Photo Printing</a></li>
             </ul>
           </div>
           <div class="footer-contact">
-            <h4>Contact</h4>
-            <p>+62 812 3456 0525</p>
-            <p>cs@gemiprint.com</p>
+            <h4 data-i18n="footer.contact">Contact</h4>
+            <p><a href="https://wa.me/6281234560525" target="_blank" rel="noopener noreferrer" class="contact-link phone-link">+62 812 3456 0525</a></p>
+            <p><a href="mailto:cs@gemiprint.com" class="contact-link email-link">cs@gemiprint.com</a></p>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 gemiprint. All rights reserved.</p>
+          <p data-i18n="footer.copyright">&copy; 2024 gemiprint. All rights reserved.</p>
         </div>
       </div>
     </footer>
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
