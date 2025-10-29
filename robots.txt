@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://gemiprint.com/sitemap.xml
+
+# Block access to tools and config (not user-facing)
+Disallow: /tools/
+Disallow: /.github/
+Disallow: /reviews.json

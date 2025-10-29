@@ -1,41 +1,43 @@
 name: Update Google Reviews
 
 on:
-  workflow_dispatch:
+  # Run automatically every day at 2 AM UTC
   schedule:
-    - cron: "0 3 * * *" # daily at 03:00 UTC
+    - cron: "0 2 * * *"
 
-permissions:
-  contents: write
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
 
 jobs:
   fetch-reviews:
     runs-on: ubuntu-latest
-    env:
-      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-      GOOGLE_PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
-      PLACE_QUERY: Percetakan gemiprint Cifest Walk Cikarang
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
 
-      - name: Set up Node.js
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Fetch latest Google reviews (skip if no API key)
-        if: ${{ env.GOOGLE_PLACES_API_KEY != '' }}
+      - name: Fetch latest reviews from Google
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          PLACE_QUERY: "Percetakan gemiprint Cifest Walk Cikarang"
         run: node ./tools/fetch-reviews.mjs
 
-      - name: Commit changes if any
+      - name: Commit updated reviews.json
         run: |
-          if git diff --quiet --exit-code -- reviews.json; then
-            echo "No changes to commit."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet reviews.json; then
+            echo "No changes to reviews.json"
           else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add reviews.json
-            git commit -m "chore(reviews): update reviews.json [skip ci]"
+            git commit -m "chore: update Google reviews [skip ci]"
             git push
           fi
