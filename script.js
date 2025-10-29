@@ -53,6 +53,365 @@ window
 // Initialize theme
 initTheme();
 
+// ============================================
+// LANGUAGE SWITCHER
+// ============================================
+
+const translations = {
+  en: {
+    // Navigation
+    "nav.home": "Home",
+    "nav.about": "About Us",
+    "nav.aboutUs": "About Us",
+    "nav.ourMission": "Our Mission",
+    "nav.ourProducts": "Our Products",
+    "nav.ourMachines": "Our Machines",
+    "nav.ourProcedures": "How It Works",
+    "nav.testimonials": "Testimonials",
+    "nav.contact": "Contact Us",
+
+    // Hero Section
+    "hero.title1": "Your Partner in Printing and",
+    "hero.title2": "Powerful Promotions",
+    "hero.subtitle":
+      "Delivering high-quality printing and promotional solutions that help your business make a lasting impression. From business cards to banners, we turn your ideas into results that speak for your brand.",
+    "hero.cta": "Get Started",
+
+    // About Section
+    "about.title1": "Why Choose",
+    "about.title2": "?",
+    "about.subtitle":
+      "Our mission is to empower brands through reliable, creative, and affordable printing solutions",
+    "about.card1.title": "Best Service",
+    "about.card1.text":
+      "Understanding your unique printing needs through dedicated consultation and personalized service",
+    "about.card2.title": "Best Price",
+    "about.card2.text":
+      "Comprehensive printing solutions tailored to your specifications with competitive pricing",
+    "about.card3.title": "Top-Quality Printing",
+    "about.card3.text":
+      "On-time delivery with guaranteed quality that exceeds expectations every single time",
+
+    // Services Section
+    "services.title": "Our Services",
+    "services.subtitle": "Comprehensive printing solutions for all your needs",
+    "services.item1.title": "Large Format Printing",
+    "services.item1.text":
+      "High-quality banners, posters, and signage for impactful visual communication",
+    "services.item2.title": "Digital Textile Printing",
+    "services.item2.text":
+      "Vibrant fabric printing for fashion, home decor, and promotional materials",
+    "services.item3.title": "UV Printing",
+    "services.item3.text":
+      "Direct-to-substrate printing on virtually any material with stunning results",
+    "services.item4.title": "Photo Printing",
+    "services.item4.text":
+      "Professional-grade photo reproduction with exceptional color accuracy",
+    "services.item5.title": "Commercial Printing",
+    "services.item5.text":
+      "Business cards, brochures, and marketing materials that make an impression",
+    "services.item6.title": "Custom Solutions",
+    "services.item6.text":
+      "Specialized printing services designed to meet your unique requirements",
+
+    // Machines Section
+    "machines.title": "State-of-the-Art Equipment",
+    "machines.subtitle": "Industry-leading technology for superior results",
+
+    // Procedures Section
+    "procedures.title": "How It Works",
+    "procedures.subtitle":
+      "Provide your artwork or let our design team create one for you. We'll send a digital proof for your review before printing begins.",
+
+    // Testimonials Section
+    "testimonials.title": "What Our Clients Say",
+    "testimonials.subtitle": "Trusted by businesses across industries",
+    "testimonials.rating": "Based on Google Reviews",
+    "testimonials.cta": "Leave a Review",
+
+    // Contact Section
+    "contact.title": "Get In Touch",
+    "contact.subtitle": "Ready to bring your vision to life? Contact us today",
+    "contact.address": "Address",
+    "contact.phone": "Phone",
+    "contact.email": "Email",
+    "contact.hours": "Hours",
+    "contact.hoursText": "Monday - Saturday: 8AM - 8PM\nSunday: 9AM - 8PM",
+    "contact.form.name": "Your Name *",
+    "contact.form.email": "Your Email (optional)",
+    "contact.form.phone": "Phone Number *",
+    "contact.form.message":
+      "Tell us about your project.\nWe can collaborate on Canva too. *",
+    "contact.form.attach": "Attach files (optional up to 10 MB)",
+    "contact.form.submit": "Send Message",
+    "contact.form.sending": "Sending...",
+    "contact.form.success":
+      "✓ Message sent successfully! We'll get back to you soon.",
+    "contact.form.error":
+      "✗ Failed to send message. Please try again or contact us directly via Whatsapp button.",
+    "contact.form.required":
+      "Please fill in all required fields (marked with *)",
+    "contact.form.notConfigured":
+      "⚠️ EmailJS is not configured yet. Please follow the setup guide.",
+
+    // Footer
+    "footer.tagline":
+      "Professional digital printing solutions in Cikarang, Bekasi since 2023",
+    "footer.quickLinks": "Quick Links",
+    "footer.services": "Services",
+    "footer.contact": "Contact",
+    "footer.copyright": "© 2024 gemiprint. All rights reserved.",
+    "footer.link.home": "Home",
+    "footer.link.about": "About",
+    "footer.link.services": "Services",
+    "footer.link.equipment": "Equipment",
+    "footer.service.largeFormat": "Large Format",
+    "footer.service.textile": "Textile Printing",
+    "footer.service.uv": "UV Printing",
+    "footer.service.photo": "Photo Printing",
+  },
+  id: {
+    // Navigation
+    "nav.home": "Beranda",
+    "nav.about": "Tentang Kami",
+    "nav.aboutUs": "Tentang Kami",
+    "nav.ourMission": "Misi Kami",
+    "nav.ourProducts": "Produk Kami",
+    "nav.ourMachines": "Mesin Kami",
+    "nav.ourProcedures": "Cara Kerjanya",
+    "nav.testimonials": "Testimoni",
+    "nav.contact": "Hubungi Kami",
+
+    // Hero Section
+    "hero.title1": "Mitra Anda dalam Percetakan dan",
+    "hero.title2": "Promosi yang Efektif",
+    "hero.subtitle":
+      "Memberikan solusi percetakan dan promosi berkualitas tinggi yang membantu bisnis Anda membuat kesan yang tahan lama dan mengesankan. Dari kartu nama hingga spanduk, kami mengubah ide Anda menjadi hasil yang berbicara untuk brand Anda.",
+    "hero.cta": "Order Sekarang",
+
+    // About Section
+    "about.title1": "Mengapa Memilih",
+    "about.title2": "?",
+    "about.subtitle":
+      "Misi kami adalah memberdayakan brand melalui solusi percetakan yang andal, kreatif, dan terjangkau",
+    "about.card1.title": "Layanan Terbaik",
+    "about.card1.text":
+      "Memahami kebutuhan percetakan unik Anda melalui konsultasi khusus dan layanan personal",
+    "about.card2.title": "Harga Terbaik",
+    "about.card2.text":
+      "Solusi percetakan lengkap yang disesuaikan dengan spesifikasi Anda dengan harga kompetitif",
+    "about.card3.title": "Kualitas Premium",
+    "about.card3.text":
+      "Pengiriman tepat waktu dengan kualitas terjamin yang melebihi ekspektasi setiap saat",
+
+    // Services Section
+    "services.title": "Layanan Kami",
+    "services.subtitle": "Solusi percetakan lengkap untuk semua kebutuhan Anda",
+    "services.item1.title": "Cetak Format Besar",
+    "services.item1.text":
+      "Spanduk, poster, dan signage berkualitas tinggi untuk komunikasi visual yang berdampak",
+    "services.item2.title": "Cetak Tekstil Digital",
+    "services.item2.text":
+      "Cetak kain yang vibrant untuk fashion, dekorasi rumah, dan materi promosi",
+    "services.item3.title": "Cetak UV",
+    "services.item3.text":
+      "Cetak langsung ke berbagai material dengan hasil yang memukau",
+    "services.item4.title": "Cetak Foto",
+    "services.item4.text":
+      "Reproduksi foto berkelas profesional dengan akurasi warna yang luar biasa",
+    "services.item5.title": "Cetak Komersial",
+    "services.item5.text":
+      "Kartu nama, brosur, dan materi marketing yang membuat kesan",
+    "services.item6.title": "Solusi Custom",
+    "services.item6.text":
+      "Layanan percetakan khusus yang dirancang untuk memenuhi kebutuhan unik Anda",
+
+    // Machines Section
+    "machines.title": "Peralatan Canggih",
+    "machines.subtitle": "Teknologi terdepan untuk hasil yang superior",
+
+    // Procedures Section
+    "procedures.title": "Cara Kerjanya",
+    "procedures.subtitle":
+      "Berikan desain Anda atau biarkan tim desain kami membuatkannya untuk Anda. Kami akan mengirimkan proof digital untuk direview sebelum proses cetak dimulai.",
+
+    // Testimonials Section
+    "testimonials.title": "Apa Kata Klien Kami",
+    "testimonials.subtitle": "Dipercaya oleh bisnis di berbagai industri",
+    "testimonials.rating": "Berdasarkan Google Reviews",
+    "testimonials.cta": "Tulis Review",
+
+    // Contact Section
+    "contact.title": "Hubungi Kami",
+    "contact.subtitle": "Siap mewujudkan visi Anda? Hubungi kami hari ini",
+    "contact.address": "Alamat",
+    "contact.phone": "Telepon",
+    "contact.email": "Email",
+    "contact.hours": "Jam Buka",
+    "contact.hoursText": "Senin - Sabtu: 08.00 - 20.00\nMinggu: 09.00 - 20.00",
+    "contact.form.name": "Nama Anda *",
+    "contact.form.email": "Email Anda (opsional)",
+    "contact.form.phone": "Nomor Telepon *",
+    "contact.form.message":
+      "Ceritakan tentang proyek Anda.\nKami bisa kolaborasi di Canva juga. *",
+    "contact.form.attach": "Lampirkan file (opsional maksimal 10 MB)",
+    "contact.form.submit": "Kirim Pesan",
+    "contact.form.sending": "Mengirim...",
+    "contact.form.success":
+      "✓ Pesan berhasil dikirim! Kami akan segera menghubungi Anda.",
+    "contact.form.error":
+      "✗ Gagal mengirim pesan. Silakan coba lagi atau hubungi kami langsung melalui tombol Whatsapp.",
+    "contact.form.required":
+      "Mohon isi semua kolom yang wajib (ditandai dengan *)",
+    "contact.form.notConfigured":
+      "⚠️ EmailJS belum dikonfigurasi. Silakan ikuti panduan setup.",
+
+    // Footer
+    "footer.tagline":
+      "Solusi percetakan digital profesional di Cikarang, Bekasi sejak 2023",
+    "footer.quickLinks": "Tautan Cepat",
+    "footer.services": "Layanan",
+    "footer.contact": "Kontak",
+    "footer.copyright": "© 2024 gemiprint. Hak cipta dilindungi.",
+    "footer.link.home": "Beranda",
+    "footer.link.about": "Tentang",
+    "footer.link.services": "Layanan",
+    "footer.link.equipment": "Peralatan",
+    "footer.service.largeFormat": "Format Besar",
+    "footer.service.textile": "Cetak Tekstil",
+    "footer.service.uv": "Cetak UV",
+    "footer.service.photo": "Cetak Foto",
+  },
+};
+
+// Language switching functionality
+let currentLang = localStorage.getItem("language") || "id"; // Default to Indonesian
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem("language", lang);
+  document.documentElement.setAttribute("lang", lang === "id" ? "id" : "en");
+
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.getAttribute("data-i18n");
+    const translation = translations[lang][key];
+
+    if (translation) {
+      // Handle multiline text (for textareas)
+      if (
+        element.tagName === "TEXTAREA" ||
+        element.hasAttribute("placeholder")
+      ) {
+        if (element.hasAttribute("placeholder")) {
+          element.placeholder = translation.replace(/\\n/g, "\n");
+        } else {
+          element.textContent = translation.replace(/\\n/g, "\n");
+        }
+      } else {
+        element.textContent = translation;
+      }
+    }
+  });
+
+  // Update placeholders
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+    const key = element.getAttribute("data-i18n-placeholder");
+    const translation = translations[lang][key];
+    if (translation) {
+      element.placeholder = translation.replace(/\\n/g, "\n");
+    }
+  });
+
+  // Update title attributes (for tooltips/hover)
+  document.querySelectorAll("[data-i18n-title]").forEach((element) => {
+    const key = element.getAttribute("data-i18n-title");
+    const translation = translations[lang][key];
+    if (translation) {
+      element.title = translation;
+    }
+  });
+
+  // Update language toggle button
+  const langToggle = document.querySelector(".lang-active");
+  if (langToggle) {
+    langToggle.textContent = lang.toUpperCase();
+  }
+
+  // Update form validation messages
+  updateFormValidationLanguage(lang);
+}
+
+function updateFormValidationLanguage(lang) {
+  // Set custom validation messages for required fields
+  const nameInput = document.getElementById("name");
+  const phoneInput = document.getElementById("phone");
+  const messageInput = document.getElementById("message");
+
+  const requiredMsg =
+    lang === "id" ? "Mohon isi kolom ini" : "Please fill out this field";
+
+  // Reset custom validity
+  if (nameInput) nameInput.setCustomValidity("");
+  if (phoneInput) phoneInput.setCustomValidity("");
+  if (messageInput) messageInput.setCustomValidity("");
+
+  // Helper function to handle invalid event
+  const handleInvalid = function () {
+    if (this.validity.valueMissing) {
+      this.setCustomValidity(requiredMsg);
+    }
+  };
+
+  const handleInput = function () {
+    this.setCustomValidity("");
+  };
+
+  // Set up validation on invalid event
+  [nameInput, phoneInput, messageInput].forEach((input) => {
+    if (input) {
+      // Remove old event listeners if they exist
+      input.removeEventListener("invalid", input._handleInvalid);
+      input.removeEventListener("input", input._handleInput);
+
+      // Store references to the handlers
+      input._handleInvalid = handleInvalid.bind(input);
+      input._handleInput = handleInput.bind(input);
+
+      // Add new event listeners
+      input.addEventListener("invalid", input._handleInvalid);
+      input.addEventListener("input", input._handleInput);
+    }
+  });
+}
+
+// Initialize language on page load
+function initLanguage() {
+  setLanguage(currentLang);
+}
+
+// Language toggle button
+const languageToggle = document.querySelector(".language-toggle");
+if (languageToggle) {
+  languageToggle.disabled = false;
+  languageToggle.removeAttribute("title");
+  languageToggle.addEventListener("click", () => {
+    const newLang = currentLang === "en" ? "id" : "en";
+    setLanguage(newLang);
+  });
+}
+
+// Initialize language after DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initLanguage);
+} else {
+  initLanguage();
+}
+
+// ============================================
+// END LANGUAGE SWITCHER
+// ============================================
+
 // Smooth scroll for internal links
 document.addEventListener("click", (e) => {
   const a = e.target.closest('a[href^="#"]');
@@ -66,26 +425,141 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Simple form handler
+// EmailJS Configuration
+// IMPORTANT: Replace these with your actual EmailJS credentials after setup
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Get from EmailJS dashboard
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID"; // e.g., "service_abc123"
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID"; // e.g., "template_xyz456"
+
+// Initialize EmailJS
+if (typeof emailjs !== "undefined") {
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+}
+
+// File upload UI handler
+const fileInput = document.getElementById("attachments");
+const fileCountSpan = document.querySelector(".file-count");
+if (fileInput && fileCountSpan) {
+  fileInput.addEventListener("change", (e) => {
+    const files = e.target.files;
+    if (files.length > 0) {
+      fileCountSpan.textContent = `(${files.length} file${
+        files.length > 1 ? "s" : ""
+      } selected)`;
+    } else {
+      fileCountSpan.textContent = "";
+    }
+  });
+}
+
+// EmailJS form handler with file attachments
 const form = document.querySelector(".contact-form");
 if (form) {
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const name = /** @type {HTMLInputElement} */ (
-      document.getElementById("name")
-    )?.value.trim();
-    const email = /** @type {HTMLInputElement} */ (
-      document.getElementById("email")
-    )?.value.trim();
-    const message = /** @type {HTMLTextAreaElement} */ (
-      document.getElementById("message")
-    )?.value.trim();
-    if (!name || !email || !message) {
-      alert("Please fill in your name, email, and message.");
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const btnText = submitBtn.querySelector(".btn-text");
+    const btnLoader = submitBtn.querySelector(".btn-loader");
+    const statusMsg = form.querySelector(".form-status");
+
+    // Get form values
+    const name = document.getElementById("name")?.value.trim();
+    const email = document.getElementById("email")?.value.trim();
+    const phone = document.getElementById("phone")?.value.trim();
+    const message = document.getElementById("message")?.value.trim();
+    const fileInput = document.getElementById("attachments");
+
+    // Validate required fields (email is optional)
+    if (!name || !phone || !message) {
+      statusMsg.textContent =
+        translations[currentLang]["contact.form.required"];
+      statusMsg.style.color = "var(--red)";
       return;
     }
-    alert("Thank you! Your message has been sent.");
-    form.reset();
+
+    // Check if EmailJS is configured
+    if (
+      EMAILJS_PUBLIC_KEY === "MdXueZks3wC8injWx" ||
+      EMAILJS_SERVICE_ID === "service_3kl45sr" ||
+      EMAILJS_TEMPLATE_ID === "template_sc6ym8r"
+    ) {
+      statusMsg.textContent =
+        translations[currentLang]["contact.form.notConfigured"];
+      statusMsg.style.color = "#ff9800";
+      console.error("EmailJS not configured. Update credentials in script.js");
+      return;
+    }
+
+    // Disable button and show loading
+    submitBtn.disabled = true;
+    btnText.style.display = "none";
+    btnLoader.style.display = "inline";
+    statusMsg.textContent = "";
+
+    try {
+      // Prepare template parameters
+      const templateParams = {
+        from_name: name,
+        reply_to: email,
+        phone: phone,
+        message: message,
+        to_email: "cs@gemiprint.com",
+        subject: `New inquiry from ${name} (${phone})`,
+      };
+
+      // Handle file attachments if present
+      if (fileInput && fileInput.files.length > 0) {
+        const files = Array.from(fileInput.files);
+
+        // Convert files to base64 for EmailJS
+        const attachments = await Promise.all(
+          files.map((file) => {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => {
+                resolve({
+                  name: file.name,
+                  data: reader.result.split(",")[1], // Remove data:... prefix
+                  type: file.type,
+                });
+              };
+              reader.onerror = reject;
+              reader.readAsDataURL(file);
+            });
+          })
+        );
+
+        // Add attachments to template params
+        templateParams.attachments = attachments;
+      }
+
+      // Send email via EmailJS
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
+
+      console.log("Email sent successfully:", response);
+
+      // Show success message
+      statusMsg.textContent = translations[currentLang]["contact.form.success"];
+      statusMsg.style.color = "var(--green)";
+
+      // Reset form
+      form.reset();
+      if (fileCountSpan) fileCountSpan.textContent = "";
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      statusMsg.textContent = translations[currentLang]["contact.form.error"];
+      statusMsg.style.color = "var(--red)";
+    } finally {
+      // Re-enable button
+      submitBtn.disabled = false;
+      btnText.style.display = "inline";
+      btnLoader.style.display = "none";
+    }
   });
 }
 
@@ -279,6 +753,31 @@ machineNavBtns.forEach((btn) => {
   });
 });
 
+// Procedures Carousel Navigation
+const procedureSlides = document.querySelectorAll(".procedure-slide");
+const procedureNavBtns = document.querySelectorAll(".procedure-nav-btn");
+
+function showProcedureSlide(targetProcedure) {
+  procedureSlides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
+
+  const targetSlide = document.querySelector(
+    `.procedure-slide[data-procedure="${targetProcedure}"]`
+  );
+  if (targetSlide) {
+    targetSlide.classList.add("active");
+  }
+}
+
+procedureNavBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const targetProcedure = btn.getAttribute("data-target");
+    showProcedureSlide(targetProcedure);
+  });
+});
+
 // -----------------------------
 // Google Reviews - Dynamic Cards
 // -----------------------------
@@ -402,7 +901,7 @@ machineNavBtns.forEach((btn) => {
 </svg>';
 
   function createCard(idx) {
-    const t = testimonials[idx];
+    const t = dataset[idx];
     const el = document.createElement("div");
     el.className = "review-card";
     el.setAttribute("role", "article");
