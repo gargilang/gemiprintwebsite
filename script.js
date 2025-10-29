@@ -142,7 +142,8 @@ const translations = {
     "contact.form.phone": "Phone Number *",
     "contact.form.message":
       "Tell us about your project.\nWe can collaborate on Canva too. *",
-    "contact.form.attach": "Attach files (optional up to 7 MB)",
+    "contact.form.fileLinks":
+      "Link to your files/design (Google Drive, Canva, Dropbox, etc. - optional)",
     "contact.form.submit": "Send Message",
     "contact.form.sending": "Sending...",
     "contact.form.success":
@@ -258,7 +259,8 @@ const translations = {
     "contact.form.phone": "Nomor Telepon *",
     "contact.form.message":
       "Ceritakan tentang proyek Anda.\nKami bisa kolaborasi di Canva juga. *",
-    "contact.form.attach": "Lampirkan file (opsional maksimal 7 MB)",
+    "contact.form.fileLinks":
+      "Link file/desain Anda (Google Drive, Canva, Dropbox, dsb. - opsional)",
     "contact.form.submit": "Kirim Pesan",
     "contact.form.sending": "Mengirim...",
     "contact.form.success":
@@ -501,23 +503,7 @@ if (typeof emailjs !== "undefined") {
   emailjs.init(EMAILJS_PUBLIC_KEY);
 }
 
-// File upload UI handler
-const fileInput = document.getElementById("attachments");
-const fileCountSpan = document.querySelector(".file-count");
-if (fileInput && fileCountSpan) {
-  fileInput.addEventListener("change", (e) => {
-    const files = e.target.files;
-    if (files.length > 0) {
-      fileCountSpan.textContent = `(${files.length} file${
-        files.length > 1 ? "s" : ""
-      } selected)`;
-    } else {
-      fileCountSpan.textContent = "";
-    }
-  });
-}
-
-// EmailJS form handler with file attachments
+// EmailJS form handler
 const form = document.querySelector(".contact-form");
 // Timestamp to prevent instant-bot submissions
 const formLoadTs = Date.now();
@@ -535,7 +521,7 @@ if (form) {
     const email = document.getElementById("email")?.value.trim();
     const phone = document.getElementById("phone")?.value.trim();
     const message = document.getElementById("message")?.value.trim();
-    const fileInput = document.getElementById("attachments");
+    const fileLinks = document.getElementById("file_links")?.value.trim();
 
     // Basic bot honeypot (optional hidden input with id="website")
     const honeypot = document.getElementById("website");
@@ -589,89 +575,38 @@ if (form) {
     statusMsg.textContent = "";
 
     try {
-      // Prepare template parameters for no-attachment flow
+      // Prepare template parameters
       const templateParams = {
         from_name: name,
         reply_to: email,
         phone: phone,
         message: message,
+        file_links: fileLinks || "Tidak ada link file",
         to_email: "cs@gemiprint.com",
         subject: `New inquiry from ${name} (${phone})`,
       };
 
-      // If there are attachments, prefer sendForm so EmailJS handles file uploads
-      const hasAttachments = fileInput && fileInput.files.length > 0;
-
       // Acquire reCAPTCHA v3 token if configured
-      let recaptchaToken = "";
       if (RECAPTCHA_SITE_KEY) {
         try {
           await ensureRecaptchaLoaded();
           if (window.grecaptcha && window.grecaptcha.execute) {
-            recaptchaToken = await window.grecaptcha.execute(
-              RECAPTCHA_SITE_KEY,
-              { action: "contact_form" }
-            );
-            if (!hasAttachments) {
-              // Only add to templateParams in send (no-attachment) mode
-              templateParams["g-recaptcha-response"] = recaptchaToken;
-            }
+            const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+              action: "contact_form",
+            });
+            templateParams["g-recaptcha-response"] = token;
           }
         } catch (rcErr) {
           console.warn("reCAPTCHA failed to load or execute", rcErr);
         }
       }
 
-      let response;
-      if (hasAttachments) {
-        // Enforce total raw size limit with base64 overhead buffer (~33%)
-        const totalBytes = Array.from(fileInput.files).reduce(
-          (sum, f) => sum + (f.size || 0),
-          0
-        );
-        const MAX_RAW = Math.floor(7.5 * 1024 * 1024); // ~7.5MB raw ~= 10MB base64
-        if (totalBytes > MAX_RAW) {
-          statusMsg.textContent =
-            translations[currentLang]["contact.form.fileLimit"];
-          statusMsg.style.color = "var(--red)";
-          throw new Error("Attachment size exceeds adjusted 7.5MB raw limit");
-        }
-
-        // Add temporary hidden inputs for extra template variables
-        const tmpInputs = [];
-        const addHidden = (name, value) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = name;
-          input.value = value;
-          form.appendChild(input);
-          tmpInputs.push(input);
-        };
-
-        addHidden("to_email", templateParams.to_email);
-        addHidden("subject", templateParams.subject);
-        if (recaptchaToken) {
-          addHidden("g-recaptcha-response", recaptchaToken);
-        }
-
-        try {
-          response = await emailjs.sendForm(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            form
-          );
-        } finally {
-          // Clean up temporary inputs
-          tmpInputs.forEach((i) => i.remove());
-        }
-      } else {
-        // No attachments: simple send with params
-        response = await emailjs.send(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          templateParams
-        );
-      }
+      // Send email via EmailJS (simple send, no file uploads)
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
 
       console.log("Email sent successfully:", response);
 
@@ -684,7 +619,6 @@ if (form) {
 
       // Reset form
       form.reset();
-      if (fileCountSpan) fileCountSpan.textContent = "";
     } catch (error) {
       console.error("EmailJS error:", error);
       statusMsg.textContent = translations[currentLang]["contact.form.error"];
