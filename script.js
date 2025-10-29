@@ -153,6 +153,10 @@ const translations = {
       "Please fill in all required fields (marked with *)",
     "contact.form.notConfigured":
       "⚠️ EmailJS is not configured yet. Please follow the setup guide.",
+    "contact.form.rateLimit": "Please wait a moment before sending again",
+    "contact.form.fileLimit": "Total attachments must be 10 MB or less",
+    "contact.form.spamDetected":
+      "Submission blocked. Please try again in a moment.",
 
     // Footer
     "footer.tagline":
@@ -178,7 +182,7 @@ const translations = {
     "nav.ourMission": "Misi Kami",
     "nav.ourProducts": "Produk Kami",
     "nav.ourMachines": "Mesin Kami",
-    "nav.ourProcedures": "Cara Kerjanya",
+    "nav.ourProcedures": "Prosedur Kami",
     "nav.testimonials": "Testimoni",
     "nav.contact": "Hubungi Kami",
 
@@ -231,7 +235,7 @@ const translations = {
     "machines.subtitle": "Teknologi terdepan untuk hasil yang superior",
 
     // Procedures Section
-    "procedures.title": "Cara Kerjanya",
+    "procedures.title": "Cara Kerja Kami",
     "procedures.subtitle":
       "Berikan desain Anda atau biarkan tim desain kami membuatkannya untuk Anda. Kami akan mengirimkan proof digital untuk direview sebelum proses cetak dimulai.",
 
@@ -265,6 +269,10 @@ const translations = {
       "Mohon isi semua kolom yang wajib (ditandai dengan *)",
     "contact.form.notConfigured":
       "⚠️ EmailJS belum dikonfigurasi. Silakan ikuti panduan setup.",
+    "contact.form.rateLimit": "Mohon tunggu sebentar sebelum mengirim lagi",
+    "contact.form.fileLimit": "Total lampiran maksimal 10 MB",
+    "contact.form.spamDetected":
+      "Pengiriman diblokir. Silakan coba lagi nanti.",
 
     // Footer
     "footer.tagline":
@@ -347,19 +355,27 @@ function updateFormValidationLanguage(lang) {
   const nameInput = document.getElementById("name");
   const phoneInput = document.getElementById("phone");
   const messageInput = document.getElementById("message");
+  const emailInput = document.getElementById("email");
 
   const requiredMsg =
     lang === "id" ? "Mohon isi kolom ini" : "Please fill out this field";
+  const emailInvalidMsg =
+    lang === "id"
+      ? "Mohon masukkan alamat email yang valid"
+      : "Please enter a valid email address";
 
   // Reset custom validity
   if (nameInput) nameInput.setCustomValidity("");
   if (phoneInput) phoneInput.setCustomValidity("");
   if (messageInput) messageInput.setCustomValidity("");
+  if (emailInput) emailInput.setCustomValidity("");
 
   // Helper function to handle invalid event
   const handleInvalid = function () {
     if (this.validity.valueMissing) {
       this.setCustomValidity(requiredMsg);
+    } else if (this.type === "email" && this.validity.typeMismatch) {
+      this.setCustomValidity(emailInvalidMsg);
     }
   };
 
@@ -368,7 +384,7 @@ function updateFormValidationLanguage(lang) {
   };
 
   // Set up validation on invalid event
-  [nameInput, phoneInput, messageInput].forEach((input) => {
+  [nameInput, phoneInput, messageInput, emailInput].forEach((input) => {
     if (input) {
       // Remove old event listeners if they exist
       input.removeEventListener("invalid", input._handleInvalid);
@@ -381,6 +397,22 @@ function updateFormValidationLanguage(lang) {
       // Add new event listeners
       input.addEventListener("invalid", input._handleInvalid);
       input.addEventListener("input", input._handleInput);
+
+      // Initialize message immediately so hover shows localized text
+      if (input.required && !input.value) {
+        input.setCustomValidity(requiredMsg);
+        input.title = requiredMsg; // also set title so simple hover uses localized text
+      } else if (
+        input.type === "email" &&
+        input.value &&
+        input.validity.typeMismatch
+      ) {
+        input.setCustomValidity(emailInvalidMsg);
+        input.title = emailInvalidMsg;
+      } else {
+        input.setCustomValidity("");
+        input.removeAttribute("title");
+      }
     }
   });
 }
@@ -427,9 +459,42 @@ document.addEventListener("click", (e) => {
 
 // EmailJS Configuration
 // IMPORTANT: Replace these with your actual EmailJS credentials after setup
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Get from EmailJS dashboard
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID"; // e.g., "service_abc123"
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID"; // e.g., "template_xyz456"
+const EMAILJS_PUBLIC_KEY = "MdXueZks3wC8injWx"; // Get from EmailJS dashboard
+const EMAILJS_SERVICE_ID = "service_3kl45sr"; // e.g., "service_abc123"
+const EMAILJS_TEMPLATE_ID = "template_sc6ym8r"; // e.g., "template_xyz456"
+
+// reCAPTCHA v3 Configuration (optional but recommended)
+// Create a site key at https://www.google.com/recaptcha/admin
+// Leave empty to disable reCAPTCHA
+const RECAPTCHA_SITE_KEY = "6LflefsrAAAAADkwKgWWW3fPt68V_jM6EfCbGBVe"; // e.g., "6Lc...your_site_key..." or leave "" to disable
+
+let recaptchaScriptLoading = null;
+function ensureRecaptchaLoaded() {
+  if (!RECAPTCHA_SITE_KEY) return Promise.resolve();
+  if (window.grecaptcha && typeof window.grecaptcha.ready === "function") {
+    return new Promise((resolve) => window.grecaptcha.ready(resolve));
+  }
+  if (!recaptchaScriptLoading) {
+    recaptchaScriptLoading = new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(
+        RECAPTCHA_SITE_KEY
+      )}`;
+      s.async = true;
+      s.defer = true;
+      s.onload = () => {
+        if (window.grecaptcha) {
+          window.grecaptcha.ready(resolve);
+        } else {
+          resolve();
+        }
+      };
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+  return recaptchaScriptLoading;
+}
 
 // Initialize EmailJS
 if (typeof emailjs !== "undefined") {
@@ -454,6 +519,8 @@ if (fileInput && fileCountSpan) {
 
 // EmailJS form handler with file attachments
 const form = document.querySelector(".contact-form");
+// Timestamp to prevent instant-bot submissions
+const formLoadTs = Date.now();
 if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -470,6 +537,15 @@ if (form) {
     const message = document.getElementById("message")?.value.trim();
     const fileInput = document.getElementById("attachments");
 
+    // Basic bot honeypot (optional hidden input with id="website")
+    const honeypot = document.getElementById("website");
+    if (honeypot && honeypot.value) {
+      statusMsg.textContent =
+        translations[currentLang]["contact.form.spamDetected"];
+      statusMsg.style.color = "var(--red)";
+      return;
+    }
+
     // Validate required fields (email is optional)
     if (!name || !phone || !message) {
       statusMsg.textContent =
@@ -478,12 +554,27 @@ if (form) {
       return;
     }
 
-    // Check if EmailJS is configured
-    if (
-      EMAILJS_PUBLIC_KEY === "MdXueZks3wC8injWx" ||
-      EMAILJS_SERVICE_ID === "service_3kl45sr" ||
-      EMAILJS_TEMPLATE_ID === "template_sc6ym8r"
-    ) {
+    // Gentle slowdown: require at least 3s on page before first submit
+    if (Date.now() - formLoadTs < 3000) {
+      statusMsg.textContent =
+        translations[currentLang]["contact.form.rateLimit"];
+      statusMsg.style.color = "#ff9800";
+      return;
+    }
+
+    // Client-side rate limiting: 60s between submissions per device
+    const lastSubmit = Number(
+      localStorage.getItem("gp_contact_last_submit") || "0"
+    );
+    if (Date.now() - lastSubmit < 60 * 1000) {
+      statusMsg.textContent =
+        translations[currentLang]["contact.form.rateLimit"];
+      statusMsg.style.color = "#ff9800";
+      return;
+    }
+
+    // Check if EmailJS is configured (non-empty)
+    if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
       statusMsg.textContent =
         translations[currentLang]["contact.form.notConfigured"];
       statusMsg.style.color = "#ff9800";
@@ -508,9 +599,36 @@ if (form) {
         subject: `New inquiry from ${name} (${phone})`,
       };
 
+      // Acquire reCAPTCHA v3 token if configured
+      if (RECAPTCHA_SITE_KEY) {
+        try {
+          await ensureRecaptchaLoaded();
+          if (window.grecaptcha && window.grecaptcha.execute) {
+            const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+              action: "contact_form",
+            });
+            // EmailJS expects this parameter name when reCAPTCHA is enabled server-side
+            templateParams["g-recaptcha-response"] = token;
+          }
+        } catch (rcErr) {
+          console.warn("reCAPTCHA failed to load or execute", rcErr);
+          // Continue without token; EmailJS will reject if reCAPTCHA is required there
+        }
+      }
+
       // Handle file attachments if present
       if (fileInput && fileInput.files.length > 0) {
         const files = Array.from(fileInput.files);
+
+        // Enforce total size limit (10 MB)
+        const totalBytes = files.reduce((sum, f) => sum + (f.size || 0), 0);
+        const TEN_MB = 10 * 1024 * 1024;
+        if (totalBytes > TEN_MB) {
+          statusMsg.textContent =
+            translations[currentLang]["contact.form.fileLimit"];
+          statusMsg.style.color = "var(--red)";
+          throw new Error("Attachment size exceeds 10 MB");
+        }
 
         // Convert files to base64 for EmailJS
         const attachments = await Promise.all(
@@ -546,6 +664,9 @@ if (form) {
       // Show success message
       statusMsg.textContent = translations[currentLang]["contact.form.success"];
       statusMsg.style.color = "var(--green)";
+
+      // Record successful submission time (rate limiting)
+      localStorage.setItem("gp_contact_last_submit", String(Date.now()));
 
       // Reset form
       form.reset();
@@ -729,7 +850,7 @@ window.addEventListener(
 );
 
 // Machines Carousel Navigation
-const machineSlides = document.querySelectorAll(".machine-slide");
+const machineSlides = document.querySelectorAll(".machine-card");
 const machineNavBtns = document.querySelectorAll(".machine-nav-btn");
 
 function showMachineSlide(targetMachine) {
@@ -738,7 +859,7 @@ function showMachineSlide(targetMachine) {
   });
 
   const targetSlide = document.querySelector(
-    `.machine-slide[data-machine="${targetMachine}"]`
+    `.machine-card[data-machine="${targetMachine}"]`
   );
   if (targetSlide) {
     targetSlide.classList.add("active");
