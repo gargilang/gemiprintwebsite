@@ -1,1 +1,26 @@
-
+[
+  {
+    "name": "Cahya Sumirat",
+    "text": "Print banners",
+    "rating": 5,
+    "date": "a week ago"
+  },
+  {
+    "name": "Kurniawati",
+    "text": "fast banner printing, can wait, thx",
+    "rating": 5,
+    "date": "a week ago"
+  },
+  {
+    "name": "Syamsul Bahri",
+    "text": "Express Printing, Satisfying Results",
+    "rating": 5,
+    "date": "2 months ago"
+  },
+  {
+    "name": "Shoe Refresh Cikarang",
+    "text": "Good service, satisfactory print results, recommended for printing in the South Cikarang area",
+    "rating": 5,
+    "date": "2 months ago"
+  }
+]
