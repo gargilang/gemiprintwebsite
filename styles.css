@@ -703,6 +703,7 @@ img {
   grid-template-columns: 300px 1fr;
   gap: 24px;
   align-items: center;
+  min-height: 100%; /* fill slider height to make background card taller */
 }
 
 .machine-card.active {
@@ -764,6 +765,45 @@ img {
   color: var(--muted);
   font-size: 15px;
   line-height: 1.5;
+}
+
+/* Make machine cards larger on tablet and desktop */
+@media (min-width: 769px) {
+  .machines-slider {
+    min-height: 620px;
+  }
+  .machine-card {
+    padding: 40px;
+    grid-template-columns: 420px 1fr;
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .machines-slider {
+    min-height: 720px;
+  }
+  .machine-card {
+    padding: 48px;
+    grid-template-columns: 520px 1fr;
+    gap: 40px;
+  }
+}
+
+/* Force machine cards to keep light-mode look in dark mode */
+[data-theme="dark"] .machines .machine-card {
+  background: #ffffff;
+  border-color: #eef2f7;
+  color: #1b1f23; /* base text inside card */
+}
+[data-theme="dark"] .machines .machine-name {
+  color: #1b1f23;
+}
+[data-theme="dark"] .machines .spec-label {
+  color: #1b1f23;
+}
+[data-theme="dark"] .machines .spec-value {
+  color: #6b7280; /* light-mode muted */
 }
 
 /* Navigation buttons - default (desktop/tablet): left & right */
