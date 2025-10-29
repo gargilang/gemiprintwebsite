@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>gemiprint - Percetakan Cikarang</title>
+    <title>gemiprint - PT. GEMI - Percetakan Cikarang (CIFEST WALK)</title>
     <link rel="icon" type="image/svg+xml" href="images/logo-navbar-default.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -27,7 +27,12 @@
           <ul class="nav-menu">
             <li><a href="#home">Home</a></li>
             <li class="nav-dropdown">
-              <a href="#about" class="dropdown-toggle">About Us</a>
+              <a href="#about" class="dropdown-toggle">
+                About Us
+                <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
               <ul class="dropdown-menu">
                 <li><a href="#about">Our Mission</a></li>
                 <li><a href="#services">Our Products</a></li>
@@ -37,6 +42,29 @@
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="#contact" class="btn-contact">Contact Us</a></li>
           </ul>
+          <div class="nav-controls">
+            <!-- Theme Toggle Slider -->
+            <button class="theme-toggle-slider" aria-label="Toggle dark mode">
+              <div class="toggle-track">
+                <svg class="toggle-icon sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="toggle-icon moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="toggle-thumb"></div>
+              </div>
+            </button>
+            
+            <!-- Language Selector (for future use) -->
+            <button class="language-toggle" aria-label="Change language" disabled title="Coming soon">
+              <span class="lang-active">EN</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
         </div>
             <span></span>
             <span></span>
@@ -261,20 +289,29 @@
           <h2>What Our Clients Say</h2>
           <p>Trusted by businesses across industries</p>
         </div>
-        <div class="testimonials-slider">
-          <div class="testimonial-slide active" data-testimonial="1">
-            <img src="images/testimoni01.png" alt="Client 1" />
+        
+        <!-- Google Reviews Summary -->
+        <div class="google-reviews-summary">
+          <div class="reviews-rating">
+            <div class="rating-stars">
+              <span class="star">⭐</span>
+              <span class="star">⭐</span>
+              <span class="star">⭐</span>
+              <span class="star">⭐</span>
+              <span class="star">⭐</span>
+            </div>
+            <div class="rating-info">
+              <span class="rating-score">4.9</span>
+              <span class="rating-text">Based on Google Reviews</span>
+            </div>
           </div>
-          <div class="testimonial-slide" data-testimonial="2">
-            <img src="images/testimoni02.png" alt="Client 2" />
-          </div>
-          <div class="testimonial-slide" data-testimonial="3">
-            <img src="images/testimoni03.png" alt="Client 3" />
-          </div>
-          <div class="testimonial-slide" data-testimonial="4">
-            <img src="images/testimoni04.png" alt="Client 4" />
-          </div>
+          <a href="https://www.google.com/maps/place/Percetakan+gemiprint/@-6.3420567,107.1161491,17z/data=!4m8!3m7!1s0x2e699b2afa0c4475:0x98436d6859c9c48c!8m2!3d-6.3420567!4d107.118724!9m1!1b1!16s%2Fg%2F11wc3hpxb2" target="_blank" class="btn btn-review">
+            Leave a Review
+          </a>
         </div>
+
+        <!-- Review Cards Grid -->
+        <div class="reviews-grid"><!-- dynamically populated --></div>
       </div>
     </section>
 
@@ -343,7 +380,7 @@
         <div class="footer-content">
           <div class="footer-logo">
             <img src="images/logo-gemiprint-white.svg" alt="GemiPrint Logo" />
-            <p>Professional digital printing solutions since 2023</p>
+            <p>PT. GRAFIKA ESTETIKA MEDIA INTERNUSA<br /><br />Professional digital printing solutions in Cikarang, Bekasi since 2023</p>
           </div>
           <div class="footer-links">
             <h4>Quick Links</h4>
@@ -370,7 +407,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 GemiPrint. All rights reserved.</p>
+          <p>&copy; 2024 gemiprint. All rights reserved.</p>
         </div>
       </div>
     </footer>
