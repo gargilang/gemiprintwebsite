@@ -142,7 +142,7 @@ const translations = {
     "contact.form.phone": "Phone Number *",
     "contact.form.message":
       "Tell us about your project.\nWe can collaborate on Canva too. *",
-    "contact.form.attach": "Attach files (optional up to 10 MB)",
+    "contact.form.attach": "Attach files (optional up to 7 MB)",
     "contact.form.submit": "Send Message",
     "contact.form.sending": "Sending...",
     "contact.form.success":
@@ -154,7 +154,7 @@ const translations = {
     "contact.form.notConfigured":
       "⚠️ EmailJS is not configured yet. Please follow the setup guide.",
     "contact.form.rateLimit": "Please wait a moment before sending again",
-    "contact.form.fileLimit": "Total attachments must be 10 MB or less",
+    "contact.form.fileLimit": "Total attachments must be 7 MB or less",
     "contact.form.spamDetected":
       "Submission blocked. Please try again in a moment.",
 
@@ -258,7 +258,7 @@ const translations = {
     "contact.form.phone": "Nomor Telepon *",
     "contact.form.message":
       "Ceritakan tentang proyek Anda.\nKami bisa kolaborasi di Canva juga. *",
-    "contact.form.attach": "Lampirkan file (opsional maksimal 10 MB)",
+    "contact.form.attach": "Lampirkan file (opsional maksimal 7 MB)",
     "contact.form.submit": "Kirim Pesan",
     "contact.form.sending": "Mengirim...",
     "contact.form.success":
@@ -270,7 +270,7 @@ const translations = {
     "contact.form.notConfigured":
       "⚠️ EmailJS belum dikonfigurasi. Silakan ikuti panduan setup.",
     "contact.form.rateLimit": "Mohon tunggu sebentar sebelum mengirim lagi",
-    "contact.form.fileLimit": "Total lampiran maksimal 10 MB",
+    "contact.form.fileLimit": "Total lampiran maksimal 7 MB",
     "contact.form.spamDetected":
       "Pengiriman diblokir. Silakan coba lagi nanti.",
 
@@ -589,7 +589,7 @@ if (form) {
     statusMsg.textContent = "";
 
     try {
-      // Prepare template parameters
+      // Prepare template parameters for no-attachment flow
       const templateParams = {
         from_name: name,
         reply_to: email,
@@ -599,65 +599,79 @@ if (form) {
         subject: `New inquiry from ${name} (${phone})`,
       };
 
+      // If there are attachments, prefer sendForm so EmailJS handles file uploads
+      const hasAttachments = fileInput && fileInput.files.length > 0;
+
       // Acquire reCAPTCHA v3 token if configured
+      let recaptchaToken = "";
       if (RECAPTCHA_SITE_KEY) {
         try {
           await ensureRecaptchaLoaded();
           if (window.grecaptcha && window.grecaptcha.execute) {
-            const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {
-              action: "contact_form",
-            });
-            // EmailJS expects this parameter name when reCAPTCHA is enabled server-side
-            templateParams["g-recaptcha-response"] = token;
+            recaptchaToken = await window.grecaptcha.execute(
+              RECAPTCHA_SITE_KEY,
+              { action: "contact_form" }
+            );
+            if (!hasAttachments) {
+              // Only add to templateParams in send (no-attachment) mode
+              templateParams["g-recaptcha-response"] = recaptchaToken;
+            }
           }
         } catch (rcErr) {
           console.warn("reCAPTCHA failed to load or execute", rcErr);
-          // Continue without token; EmailJS will reject if reCAPTCHA is required there
         }
       }
 
-      // Handle file attachments if present
-      if (fileInput && fileInput.files.length > 0) {
-        const files = Array.from(fileInput.files);
-
-        // Enforce total size limit (10 MB)
-        const totalBytes = files.reduce((sum, f) => sum + (f.size || 0), 0);
-        const TEN_MB = 10 * 1024 * 1024;
-        if (totalBytes > TEN_MB) {
+      let response;
+      if (hasAttachments) {
+        // Enforce total raw size limit with base64 overhead buffer (~33%)
+        const totalBytes = Array.from(fileInput.files).reduce(
+          (sum, f) => sum + (f.size || 0),
+          0
+        );
+        const MAX_RAW = Math.floor(7.5 * 1024 * 1024); // ~7.5MB raw ~= 10MB base64
+        if (totalBytes > MAX_RAW) {
           statusMsg.textContent =
             translations[currentLang]["contact.form.fileLimit"];
           statusMsg.style.color = "var(--red)";
-          throw new Error("Attachment size exceeds 10 MB");
+          throw new Error("Attachment size exceeds adjusted 7.5MB raw limit");
         }
 
-        // Convert files to base64 for EmailJS
-        const attachments = await Promise.all(
-          files.map((file) => {
-            return new Promise((resolve, reject) => {
-              const reader = new FileReader();
-              reader.onload = () => {
-                resolve({
-                  name: file.name,
-                  data: reader.result.split(",")[1], // Remove data:... prefix
-                  type: file.type,
-                });
-              };
-              reader.onerror = reject;
-              reader.readAsDataURL(file);
-            });
-          })
+        // Add temporary hidden inputs for extra template variables
+        const tmpInputs = [];
+        const addHidden = (name, value) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = name;
+          input.value = value;
+          form.appendChild(input);
+          tmpInputs.push(input);
+        };
+
+        addHidden("to_email", templateParams.to_email);
+        addHidden("subject", templateParams.subject);
+        if (recaptchaToken) {
+          addHidden("g-recaptcha-response", recaptchaToken);
+        }
+
+        try {
+          response = await emailjs.sendForm(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            form
+          );
+        } finally {
+          // Clean up temporary inputs
+          tmpInputs.forEach((i) => i.remove());
+        }
+      } else {
+        // No attachments: simple send with params
+        response = await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          templateParams
         );
-
-        // Add attachments to template params
-        templateParams.attachments = attachments;
       }
-
-      // Send email via EmailJS
-      const response = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams
-      );
 
       console.log("Email sent successfully:", response);
 
