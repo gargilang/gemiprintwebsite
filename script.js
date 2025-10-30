@@ -123,6 +123,23 @@ const translations = {
     "procedures.subtitle":
       "Provide your artwork or let our design team create one for you. We'll send a digital proof for your review before printing begins.",
 
+    // Procedures Section
+    "procedures.title": "How It Works",
+    "procedures.subtitle":
+      "Provide your artwork or let our design team create one for you. We'll send a digital proof for your review before printing begins.",
+    "procedures.step1.title": "Place Order",
+    "procedures.step1.description":
+      "Contact our team to share\nyour printing needs",
+    "procedures.step2.title": "Confirm Pricing",
+    "procedures.step2.description":
+      "Quotation with transparent pricing\nand turnaround time",
+    "procedures.step3.title": "Design & Proofing",
+    "procedures.step3.description":
+      "We will give a digital proof for your\nreview before printing begins",
+    "procedures.step4.title": "Delivery or Pick up",
+    "procedures.step4.description":
+      "Receive order on time via delivery partners,\nor pick it up directly from our store",
+
     // Testimonials Section
     "testimonials.title": "What Our Clients Say",
     "testimonials.subtitle": "Trusted by businesses across industries",
@@ -239,6 +256,18 @@ const translations = {
     "procedures.title": "Cara Kerja Kami",
     "procedures.subtitle":
       "Berikan desain Anda atau biarkan tim desain kami membuatkannya untuk Anda. Kami akan mengirimkan proof digital untuk direview sebelum proses cetak dimulai.",
+    "procedures.step1.title": "Buat Pesanan",
+    "procedures.step1.description":
+      "Hubungi tim kami untuk memenuhi\nkebutuhan cetakan Anda",
+    "procedures.step2.title": "Konfirmasi Harga",
+    "procedures.step2.description":
+      "Penawaran dengan harga transparan\ndan waktu penyelesaian yang jelas",
+    "procedures.step3.title": "Desain & Proofing",
+    "procedures.step3.description":
+      "Kami akan memberikan proof digital\nuntuk Anda tinjau sebelum cetak dimulai",
+    "procedures.step4.title": "Pengiriman atau Pengambilan",
+    "procedures.step4.description":
+      "Terima pesanan tepat waktu via delivery\natau ambil langsung dari toko kami",
 
     // Testimonials Section
     "testimonials.title": "Apa Kata Klien Kami",
@@ -258,7 +287,7 @@ const translations = {
     "contact.form.email": "Email Anda (opsional)",
     "contact.form.phone": "Nomor Telepon *",
     "contact.form.message":
-      "Ceritakan tentang proyek Anda.\nKami bisa kolaborasi di Canva juga. *",
+      "Ceritakan tentang proyek Anda.\nKami juga bisa kolaborasi di Canva. *",
     "contact.form.fileLinks":
       "Link file/desain Anda (Google Drive, Canva, Dropbox, dsb. - opsional)",
     "contact.form.submit": "Kirim Pesan",
@@ -318,6 +347,9 @@ function setLanguage(lang) {
         } else {
           element.textContent = translation.replace(/\\n/g, "\n");
         }
+      } else if (element.tagName === "P" && translation.includes("\n")) {
+        // Handle line breaks in paragraphs by converting to <br>
+        element.innerHTML = translation.replace(/\n/g, "<br>");
       } else {
         element.textContent = translation;
       }
@@ -801,6 +833,20 @@ window.addEventListener(
 const machineSlides = document.querySelectorAll(".machine-card");
 const machineNavBtns = document.querySelectorAll(".machine-nav-btn");
 const machinesSlider = document.querySelector(".machines-slider");
+const machinePaginationDots = document.querySelectorAll(
+  ".machines-pagination .pagination-dot"
+);
+
+function updateMachinePagination(activeNumber) {
+  machinePaginationDots.forEach((dot) => {
+    const dotTarget = parseInt(dot.getAttribute("data-target"));
+    if (dotTarget === activeNumber) {
+      dot.classList.add("active");
+    } else {
+      dot.classList.remove("active");
+    }
+  });
+}
 
 function showMachineSlide(targetMachine) {
   machineSlides.forEach((slide) => {
@@ -812,6 +858,7 @@ function showMachineSlide(targetMachine) {
   );
   if (targetSlide) {
     targetSlide.classList.add("active");
+    updateMachinePagination(targetMachine);
   }
 }
 
@@ -844,8 +891,16 @@ function navigateToPreviousMachine() {
 machineNavBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
-    const targetMachine = btn.getAttribute("data-target");
+    const targetMachine = parseInt(btn.getAttribute("data-target"));
     showMachineSlide(targetMachine);
+  });
+});
+
+// Add click handlers for machine pagination dots
+machinePaginationDots.forEach((dot) => {
+  dot.addEventListener("click", () => {
+    const target = parseInt(dot.getAttribute("data-target"));
+    showMachineSlide(target);
   });
 });
 
@@ -896,25 +951,75 @@ if (machinesSlider) {
 }
 
 // Procedures Carousel Navigation
-const procedureSlides = document.querySelectorAll(".procedure-slide");
+const procedureSlides = document.querySelectorAll(".procedure-card");
 const procedureNavBtns = document.querySelectorAll(".procedure-nav-btn");
 const proceduresSlider = document.querySelector(".procedures-slider");
+const procedurePaginationDots = document.querySelectorAll(
+  ".procedures-pagination .pagination-dot"
+);
 
 function showProcedureSlide(targetProcedure) {
   procedureSlides.forEach((slide) => {
-    slide.classList.remove("active");
+    slide.classList.remove(
+      "active",
+      "peek-bottom",
+      "peek-bottom-2",
+      "peek-top",
+      "peek-top-2"
+    );
   });
 
   const targetSlide = document.querySelector(
-    `.procedure-slide[data-procedure="${targetProcedure}"]`
+    `.procedure-card[data-procedure="${targetProcedure}"]`
   );
   if (targetSlide) {
     targetSlide.classList.add("active");
   }
+
+  // Add stacking effect - cards peek from behind
+  const current = targetProcedure;
+
+  // Show cards that peek from bottom (next cards)
+  if (current === 1) {
+    // Step 1 active: step 2 peeks from bottom, step 3 peeks behind step 2
+    const step2 = document.querySelector('.procedure-card[data-procedure="2"]');
+    const step3 = document.querySelector('.procedure-card[data-procedure="3"]');
+    if (step2) step2.classList.add("peek-bottom");
+    if (step3) step3.classList.add("peek-bottom-2");
+  } else if (current === 2) {
+    // Step 2 active: step 1 peeks from top, step 3 peeks from bottom
+    const step1 = document.querySelector('.procedure-card[data-procedure="1"]');
+    const step3 = document.querySelector('.procedure-card[data-procedure="3"]');
+    if (step1) step1.classList.add("peek-top");
+    if (step3) step3.classList.add("peek-bottom");
+  } else if (current === 3) {
+    // Step 3 active: step 2 peeks from top, step 4 peeks from bottom
+    const step2 = document.querySelector('.procedure-card[data-procedure="2"]');
+    const step4 = document.querySelector('.procedure-card[data-procedure="4"]');
+    if (step2) step2.classList.add("peek-top");
+    if (step4) step4.classList.add("peek-bottom");
+  } else if (current === 4) {
+    // Step 4 active: step 3 peeks from top, step 2 peeks behind step 3
+    const step3 = document.querySelector('.procedure-card[data-procedure="3"]');
+    const step2 = document.querySelector('.procedure-card[data-procedure="2"]');
+    if (step3) step3.classList.add("peek-top");
+    if (step2) step2.classList.add("peek-top-2");
+  }
+
+  // Update pagination dots
+  procedurePaginationDots.forEach((dot) => {
+    dot.classList.remove("active");
+  });
+  const activeDot = document.querySelector(
+    `.procedures-pagination .pagination-dot[data-target="${targetProcedure}"]`
+  );
+  if (activeDot) {
+    activeDot.classList.add("active");
+  }
 }
 
 function getCurrentProcedureNumber() {
-  const activeSlide = document.querySelector(".procedure-slide.active");
+  const activeSlide = document.querySelector(".procedure-card.active");
   return activeSlide ? parseInt(activeSlide.getAttribute("data-procedure")) : 1;
 }
 
@@ -942,7 +1047,15 @@ function navigateToPreviousProcedure() {
 procedureNavBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
-    const targetProcedure = btn.getAttribute("data-target");
+    const targetProcedure = parseInt(btn.getAttribute("data-target"));
+    showProcedureSlide(targetProcedure);
+  });
+});
+
+// Pagination dots for procedures
+procedurePaginationDots.forEach((dot) => {
+  dot.addEventListener("click", () => {
+    const targetProcedure = parseInt(dot.getAttribute("data-target"));
     showProcedureSlide(targetProcedure);
   });
 });

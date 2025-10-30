@@ -246,19 +246,21 @@ img {
   border-radius: 14px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 6px;
   transition: all 0.3s ease;
 }
 .toggle-icon {
-  z-index: 1;
-  color: var(--muted);
+  position: absolute;
+  z-index: 2;
+  width: 16px;
+  height: 16px;
   transition: color 0.3s ease;
 }
 .toggle-track .sun-icon {
+  left: 5px;
   color: #fbbf24;
 }
 .toggle-track .moon-icon {
+  right: 5px;
   color: #60a5fa;
 }
 .toggle-thumb {
@@ -270,6 +272,7 @@ img {
   border-radius: 50%;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 [data-theme="dark"] .toggle-thumb {
   transform: translateX(28px);
@@ -699,7 +702,7 @@ img {
   border-radius: var(--radius);
   border: 1px solid var(--card-border);
   padding: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow), inset 0 2px 8px rgba(10, 27, 61, 0.06);
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 24px;
@@ -786,7 +789,7 @@ img {
     height: 620px;
   }
   .machine-card {
-    padding: 40px;
+    padding: 40px 40px 56px 40px; /* Extra bottom padding for pagination dots */
     grid-template-columns: 420px 1fr;
     gap: 32px;
   }
@@ -794,10 +797,10 @@ img {
 
 @media (min-width: 1025px) {
   .machines-slider {
-    height: 450px;
+    height: 470px;
   }
   .machine-card {
-    padding: 32px 48px;
+    padding: 32px 48px 56px 48px; /* Extra bottom padding for pagination dots */
     grid-template-columns: 520px 1fr;
     gap: 40px;
     align-items: start;
@@ -809,6 +812,8 @@ img {
   background: #ffffff;
   border-color: #eef2f7;
   color: #1b1f23; /* base text inside card */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 2px 8px rgba(10, 27, 61, 0.08);
 }
 [data-theme="dark"] .machines .machine-name {
   color: #1b1f23;
@@ -852,11 +857,11 @@ img {
 }
 
 .machine-nav-left {
-  left: 12px;
+  left: 64px;
 }
 
 .machine-nav-right {
-  right: 12px;
+  right: 64px;
 }
 
 .machine-nav-left:hover,
@@ -881,6 +886,61 @@ img {
   display: none;
 }
 
+/* Carousel Pagination Dots */
+.carousel-pagination {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .carousel-pagination {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.pagination-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan); /* Light blue for inactive dots */
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+}
+
+.pagination-dot:hover {
+  opacity: 0.8;
+  transform: scale(1.15);
+}
+
+.pagination-dot.active {
+  background: var(--blue); /* Dark blue for active tube */
+  opacity: 1;
+  width: 32px; /* Stretch horizontally to create tube shape */
+  height: 10px;
+  border-radius: 5px; /* Pill/tube shape instead of circle */
+  transform: scale(1);
+}
+
+.pagination-dot.active:hover {
+  transform: scale(1.05); /* Slight hover effect on active */
+}
+
+/* Remove the desktop hiding rule - keep pagination visible on all devices */
+
 /******** Procedures ********/
 .procedures {
   padding: 40px 0;
@@ -896,11 +956,13 @@ img {
 .procedures-slider {
   position: relative;
   width: 100%;
-  height: 450px;
-  overflow: hidden;
+  height: 420px;
+  overflow: visible;
+  perspective: 1000px;
+  padding-bottom: 40px;
 }
 
-.procedure-slide {
+.procedure-card {
   position: absolute;
   top: 0;
   left: 0;
@@ -908,28 +970,252 @@ img {
   height: 100%;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--card-border);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
+  align-items: start;
+  transform-origin: center center;
+  pointer-events: none;
 }
 
-.procedure-slide.active {
+.procedure-card.active {
   opacity: 1;
   visibility: visible;
+  position: relative;
+  z-index: 10;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  box-shadow: 0 10px 40px rgba(10, 27, 61, 0.15);
 }
 
-.procedure-slide img {
-  width: auto;
-  height: 70%;
-  max-width: 80%;
+/* Peek effect classes - akan ditambahkan via JavaScript */
+.procedure-card.peek-bottom {
+  opacity: 0;
+  visibility: visible;
+  transform: translateY(25px) scale(0.96);
+  z-index: 9;
+  filter: brightness(0.94) blur(1px);
+  box-shadow: 0 8px 20px rgba(10, 27, 61, 0.1);
+}
+
+.procedure-card.peek-bottom-2 {
+  opacity: 0;
+  visibility: visible;
+  transform: translateY(40px) scale(0.93);
+  z-index: 8;
+  filter: brightness(0.9) blur(1.5px);
+  box-shadow: 0 6px 15px rgba(10, 27, 61, 0.08);
+}
+
+.procedure-card.peek-top {
+  opacity: 0;
+  visibility: visible;
+  transform: translateY(-25px) scale(0.96);
+  z-index: 9;
+  filter: brightness(0.94) blur(1px);
+  box-shadow: 0 -8px 20px rgba(10, 27, 61, 0.1);
+}
+
+.procedure-card.peek-top-2 {
+  opacity: 0;
+  visibility: visible;
+  transform: translateY(-40px) scale(0.93);
+  z-index: 8;
+  filter: brightness(0.9) blur(1.5px);
+  box-shadow: 0 -6px 15px rgba(10, 27, 61, 0.08);
+}
+
+.procedure-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.procedure-step-number {
+  font-family: "Bauhaus", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--navy);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.procedure-step-title {
+  font-family: "TwCenMT", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.procedure-step-description {
+  font-family: "TwCenMT", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.procedure-image {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-self: end;
+  position: relative;
+}
+
+.procedure-image img {
+  width: 100%;
+  height: auto;
+  max-width: 280px;
+  max-height: 280px;
   object-fit: contain;
 }
 
+/* Make procedure cards larger on tablet and desktop */
+@media (min-width: 769px) {
+  .procedures-slider {
+    height: 450px;
+  }
+  .procedure-card {
+    padding: 40px 40px 56px 40px;
+    grid-template-columns: 1fr 320px;
+    gap: 32px;
+  }
+  .procedure-image img {
+    max-width: 320px;
+    max-height: 320px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .procedures-slider {
+    height: 400px;
+  }
+  .procedure-card {
+    padding: 32px 48px 56px 48px;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
+  }
+  .procedure-step-number {
+    font-size: 96px;
+  }
+  .procedure-step-title {
+    font-size: 40px;
+  }
+  .procedure-step-description {
+    font-size: 20px;
+  }
+  .procedure-image img {
+    max-width: 380px;
+    max-height: 300px;
+  }
+}
+
+/* Colorful backgrounds for each procedure card */
+.procedure-card[data-procedure="1"] {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 211, 102, 0.15) 0%,
+    rgba(37, 211, 102, 0.05) 100%
+  );
+  border-color: rgba(37, 211, 102, 0.3);
+}
+
+.procedure-card[data-procedure="2"] {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 212, 0, 0.15) 0%,
+    rgba(255, 212, 0, 0.05) 100%
+  );
+  border-color: rgba(255, 212, 0, 0.3);
+}
+
+.procedure-card[data-procedure="3"] {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 47, 145, 0.15) 0%,
+    rgba(255, 47, 145, 0.05) 100%
+  );
+  border-color: rgba(255, 47, 145, 0.3);
+}
+
+.procedure-card[data-procedure="4"] {
+  background: linear-gradient(
+    135deg,
+    rgba(27, 85, 214, 0.15) 0%,
+    rgba(27, 85, 214, 0.05) 100%
+  );
+  border-color: rgba(27, 85, 214, 0.3);
+}
+
+/* Force procedure cards to keep colorful look in dark mode */
+[data-theme="dark"] .procedures .procedure-card[data-procedure="1"] {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 211, 102, 0.25) 0%,
+    rgba(37, 211, 102, 0.12) 100%
+  );
+  border-color: rgba(37, 211, 102, 0.5);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .procedures .procedure-card[data-procedure="2"] {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 212, 0, 0.25) 0%,
+    rgba(255, 212, 0, 0.12) 100%
+  );
+  border-color: rgba(255, 212, 0, 0.5);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .procedures .procedure-card[data-procedure="3"] {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 47, 145, 0.25) 0%,
+    rgba(255, 47, 145, 0.12) 100%
+  );
+  border-color: rgba(255, 47, 145, 0.5);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .procedures .procedure-card[data-procedure="4"] {
+  background: linear-gradient(
+    135deg,
+    rgba(47, 143, 255, 0.3) 0%,
+    rgba(47, 143, 255, 0.15) 100%
+  );
+  border-color: rgba(47, 143, 255, 0.6);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .procedures .procedure-step-title {
+  color: #ffffff;
+}
+[data-theme="dark"] .procedures .procedure-step-description {
+  color: #e4e7eb;
+}
+[data-theme="dark"] .procedures .procedure-step-number {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Navigation buttons for procedures */
 .procedure-nav-btn {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -948,22 +1234,164 @@ img {
 .procedure-nav-btn:hover {
   background: var(--blue);
   color: #fff;
-  transform: translateY(-50%) scale(1.1);
+  transform: scale(1.1);
   box-shadow: 0 6px 16px rgba(34, 102, 255, 0.35);
 }
 
+.procedure-nav-left,
+.procedure-nav-right {
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+}
+
 .procedure-nav-left {
-  left: 20%;
+  left: 16px;
 }
 
 .procedure-nav-right {
-  right: 20%;
+  right: 16px;
+}
+
+.procedure-nav-left:hover,
+.procedure-nav-right:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.procedure-nav-top,
+.procedure-nav-bottom {
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+
+.procedure-nav-top {
+  top: 16px;
+}
+
+.procedure-nav-bottom {
+  bottom: 16px;
+}
+
+.procedure-nav-top:hover,
+.procedure-nav-bottom:hover {
+  transform: translateX(-50%) scale(1.1);
 }
 
 .procedure-nav-btn svg {
   width: 24px;
   height: 24px;
   stroke-width: 2.5;
+}
+
+/* Pagination for procedures */
+.procedures-pagination {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 15;
+}
+
+/* Colorful pagination dots for procedures */
+.procedures-pagination .pagination-dot[data-target="1"] {
+  background: rgba(37, 211, 102, 0.9);
+}
+
+.procedures-pagination .pagination-dot[data-target="2"] {
+  background: var(--yellow);
+}
+
+.procedures-pagination .pagination-dot[data-target="3"] {
+  background: var(--magenta);
+}
+
+.procedures-pagination .pagination-dot[data-target="4"] {
+  background: #1b55d6;
+}
+
+.procedures-pagination .pagination-dot.active[data-target="1"] {
+  background: rgba(37, 211, 102, 1);
+}
+
+.procedures-pagination .pagination-dot.active[data-target="2"] {
+  background: var(--yellow);
+}
+
+.procedures-pagination .pagination-dot.active[data-target="3"] {
+  background: var(--magenta);
+}
+
+.procedures-pagination .pagination-dot.active[data-target="4"] {
+  background: #1b55d6;
+}
+
+/* Mobile: show top/bottom navigation instead of left/right */
+@media (max-width: 768px) {
+  .procedure-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding: 24px;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .procedure-details {
+    padding: 0;
+    order: 1;
+  }
+
+  .procedure-image {
+    order: 2;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0;
+  }
+
+  .procedure-image img {
+    max-width: 200px;
+  }
+
+  .procedure-step-number {
+    font-size: 56px;
+  }
+
+  .procedure-step-title {
+    font-size: 26px;
+  }
+
+  .procedure-step-description {
+    font-size: 16px;
+  }
+
+  .procedure-nav-left,
+  .procedure-nav-right {
+    display: none;
+  }
+
+  .procedure-nav-top,
+  .procedure-nav-bottom {
+    display: flex;
+  }
+
+  .procedures-slider {
+    height: auto;
+    min-height: 450px;
+    padding-bottom: 20px;
+    overflow: hidden;
+  }
+
+  /* Disable stacking effect on mobile */
+  .procedure-card.peek-bottom,
+  .procedure-card.peek-bottom-2,
+  .procedure-card.peek-top,
+  .procedure-card.peek-top-2 {
+    opacity: 0;
+    visibility: hidden;
+    transform: none;
+  }
 }
 
 /******** Testimonials ********/
@@ -1413,17 +1841,9 @@ button[type="submit"]:disabled {
     font-size: 17px;
   }
 
+  /* Hide all machine navigation buttons on tablet - use swipe instead */
   .machine-nav-btn {
-    width: 48px;
-    height: 48px;
-  }
-
-  .machine-nav-left {
-    left: 8px;
-  }
-
-  .machine-nav-right {
-    right: 8px;
+    display: none;
   }
 
   .machine-nav-btn svg {
@@ -1440,25 +1860,66 @@ button[type="submit"]:disabled {
   }
 
   .procedures-slider {
-    height: 350px;
+    height: auto;
+    min-height: 470px;
+    padding-bottom: 50px;
   }
 
+  /* Tablet: adjust procedure card for better layout */
+  .procedure-card {
+    grid-template-columns: 1fr 240px;
+    gap: 20px;
+  }
+
+  .procedure-image img {
+    max-width: 240px;
+  }
+
+  .procedure-step-number {
+    font-size: 64px;
+  }
+
+  .procedure-step-title {
+    font-size: 28px;
+  }
+
+  .procedure-step-description {
+    font-size: 17px;
+  }
+
+  /* Adjust peek effect for tablet */
+  .procedure-card.peek-bottom {
+    opacity: 0.35;
+    transform: translateY(20px) scale(0.97);
+    filter: brightness(0.94) blur(0.8px);
+  }
+
+  .procedure-card.peek-bottom-2 {
+    opacity: 0.2;
+    transform: translateY(35px) scale(0.94);
+    filter: brightness(0.9) blur(1.2px);
+  }
+
+  .procedure-card.peek-top {
+    opacity: 0.35;
+    transform: translateY(-20px) scale(0.97);
+    filter: brightness(0.94) blur(0.8px);
+  }
+
+  .procedure-card.peek-top-2 {
+    opacity: 0.2;
+    transform: translateY(-35px) scale(0.94);
+    filter: brightness(0.9) blur(1.2px);
+  }
+
+  /* Hide all procedure navigation buttons on tablet - use swipe instead */
   .procedure-nav-btn {
-    width: 48px;
-    height: 48px;
+    display: none;
   }
 
   .procedure-nav-btn svg {
     width: 20px;
     height: 20px;
-  }
-
-  .procedure-nav-left {
-    left: 18%;
-  }
-
-  .procedure-nav-right {
-    right: 18%;
   }
 
   .testimonials-slider {
@@ -1587,7 +2048,7 @@ button[type="submit"]:disabled {
   .machine-card {
     grid-template-columns: 1fr;
     gap: 16px;
-    padding: 20px;
+    padding: 20px 20px 56px 20px; /* Extra bottom padding for pagination dots */
   }
 
   .machine-image {
@@ -1617,31 +2078,9 @@ button[type="submit"]:disabled {
     font-size: 17px;
   }
 
-  /* Mobile: hide left/right buttons, show top/bottom */
-  .machine-nav-left,
-  .machine-nav-right {
+  /* Mobile: hide all machine navigation buttons - use swipe instead */
+  .machine-nav-btn {
     display: none;
-  }
-
-  .machine-nav-top,
-  .machine-nav-bottom {
-    display: flex;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .machine-nav-top {
-    top: 12px;
-  }
-
-  .machine-nav-bottom {
-    bottom: 12px;
-    top: auto;
-  }
-
-  .machine-nav-top:hover,
-  .machine-nav-bottom:hover {
-    transform: translateX(-50%) scale(1.1);
   }
 
   .machine-nav-btn {
@@ -1667,12 +2106,30 @@ button[type="submit"]:disabled {
   .contact-info {
     grid-template-columns: 1fr;
   }
-  .procedure-nav-left {
+
+  /* Mobile: hide all procedure navigation buttons - use swipe instead */
+  .procedure-nav-btn {
+    display: none;
+  }
+
+  /* Responsive procedure text overlay for mobile */
+  .procedure-text-overlay {
+    top: 10%;
     left: 8%;
-  }
-  .procedure-nav-right {
     right: 8%;
+    max-width: 65%;
   }
+
+  .procedure-step-title {
+    font-size: 24px;
+    margin: 0 0 8px 0;
+  }
+
+  .procedure-step-description {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
   .footer-content {
     grid-template-columns: 1fr 1fr;
   }

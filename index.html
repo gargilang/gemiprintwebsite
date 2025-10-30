@@ -517,6 +517,13 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
             </button>
           </div>
+          <!-- Pagination dots for machines -->
+          <div class="carousel-pagination machines-pagination">
+            <span class="pagination-dot active" data-target="1"></span>
+            <span class="pagination-dot" data-target="2"></span>
+            <span class="pagination-dot" data-target="3"></span>
+            <span class="pagination-dot" data-target="4"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -529,35 +536,88 @@
           <p data-i18n="procedures.subtitle">Berikan desain Anda atau biarkan tim desain kami membuatkannya untuk Anda. Kami akan mengirimkan proof digital untuk direview sebelum proses cetak dimulai.</p>
         </div>
         <div class="procedures-slider">
-          <div class="procedure-slide active" data-procedure="1">
-            <img src="images/step1.svg" alt="Step 1 - Konsultasi proyek percetakan Anda" />
+          <div class="procedure-card active" data-procedure="1">
+            <div class="procedure-details">
+              <div class="procedure-step-number">01</div>
+              <h3 class="procedure-step-title" data-i18n="procedures.step1.title">Buat Pesanan</h3>
+              <p class="procedure-step-description" data-i18n="procedures.step1.description">Hubungi tim kami untuk memenuhi kebutuhan cetakan Anda</p>
+            </div>
+            <div class="procedure-image">
+              <img src="images/step1.svg" alt="Step 1 - Konsultasi proyek percetakan Anda" />
+            </div>
             <button class="procedure-nav-btn procedure-nav-right" data-target="2" aria-label="Next step">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
+            <button class="procedure-nav-btn procedure-nav-bottom" data-target="2" aria-label="Next step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 9 12 15 6 9"></polyline></svg>
+            </button>
           </div>
-          <div class="procedure-slide" data-procedure="2">
-            <img src="images/step2.svg" alt="Step 2 - Desain dan approval" />
+          <div class="procedure-card" data-procedure="2">
+            <div class="procedure-details">
+              <div class="procedure-step-number">02</div>
+              <h3 class="procedure-step-title" data-i18n="procedures.step2.title">Konfirmasi Harga</h3>
+              <p class="procedure-step-description" data-i18n="procedures.step2.description">Penawaran dengan harga transparan dan waktu penyelesaian yang jelas</p>
+            </div>
+            <div class="procedure-image">
+              <img src="images/step2.svg" alt="Step 2 - Desain dan approval" />
+            </div>
             <button class="procedure-nav-btn procedure-nav-left" data-target="1" aria-label="Previous step">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
             <button class="procedure-nav-btn procedure-nav-right" data-target="3" aria-label="Next step">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
+            <button class="procedure-nav-btn procedure-nav-top" data-target="1" aria-label="Previous step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
+            </button>
+            <button class="procedure-nav-btn procedure-nav-bottom" data-target="3" aria-label="Next step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 9 12 15 6 9"></polyline></svg>
+            </button>
           </div>
-          <div class="procedure-slide" data-procedure="3">
-            <img src="images/step3.svg" alt="Step 3 - Proses produksi berkualitas" />
+          <div class="procedure-card" data-procedure="3">
+            <div class="procedure-details">
+              <div class="procedure-step-number">03</div>
+              <h3 class="procedure-step-title" data-i18n="procedures.step3.title">Desain & Proofing</h3>
+              <p class="procedure-step-description" data-i18n="procedures.step3.description">Kami akan memberikan proof digital untuk Anda tinjau sebelum cetak dimulai</p>
+            </div>
+            <div class="procedure-image">
+              <img src="images/step3.svg" alt="Step 3 - Proses produksi berkualitas" />
+            </div>
             <button class="procedure-nav-btn procedure-nav-left" data-target="2" aria-label="Previous step">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
             <button class="procedure-nav-btn procedure-nav-right" data-target="4" aria-label="Next step">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
+            <button class="procedure-nav-btn procedure-nav-top" data-target="2" aria-label="Previous step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
+            </button>
+            <button class="procedure-nav-btn procedure-nav-bottom" data-target="4" aria-label="Next step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 9 12 15 6 9"></polyline></svg>
+            </button>
           </div>
-          <div class="procedure-slide" data-procedure="4">
-            <img src="images/step4.svg" alt="Step 4 - Pengiriman tepat waktu" />
+          <div class="procedure-card" data-procedure="4">
+            <div class="procedure-details">
+              <div class="procedure-step-number">04</div>
+              <h3 class="procedure-step-title" data-i18n="procedures.step4.title">Pengiriman atau Pengambilan</h3>
+              <p class="procedure-step-description" data-i18n="procedures.step4.description">Terima pesanan tepat waktu via delivery atau ambil langsung dari toko kami</p>
+            </div>
+            <div class="procedure-image">
+              <img src="images/step4.svg" alt="Step 4 - Pengiriman tepat waktu" />
+            </div>
             <button class="procedure-nav-btn procedure-nav-left" data-target="3" aria-label="Previous step">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
+            <button class="procedure-nav-btn procedure-nav-top" data-target="3" aria-label="Previous step">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
+            </button>
+          </div>
+          <!-- Pagination dots for procedures -->
+          <div class="carousel-pagination procedures-pagination">
+            <span class="pagination-dot active" data-target="1"></span>
+            <span class="pagination-dot" data-target="2"></span>
+            <span class="pagination-dot" data-target="3"></span>
+            <span class="pagination-dot" data-target="4"></span>
           </div>
         </div>
       </div>
@@ -653,7 +713,7 @@
                 name="message"
                 rows="5"
                 data-i18n-placeholder="contact.form.message"
-                placeholder="Ceritakan tentang proyek Anda.&#10;Kami bisa kolaborasi di Canva juga. *"
+                placeholder="Ceritakan tentang proyek Anda.&#10;Kami juga bisa kolaborasi di Canva. *"
                 required
               ></textarea>
             </div>
