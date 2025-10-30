@@ -210,7 +210,7 @@ const translations = {
       "Pengiriman tepat waktu dengan kualitas terjamin yang melebihi ekspektasi setiap saat",
 
     // Services Section
-    "services.title": "Layanan Kami",
+    "services.title": "Produk dan Layanan Kami",
     "services.subtitle": "Solusi percetakan lengkap untuk semua kebutuhan Anda",
     "services.item1.title": "Cetak Format Besar",
     "services.item1.text":
@@ -232,7 +232,7 @@ const translations = {
       "Layanan percetakan khusus yang dirancang untuk memenuhi kebutuhan unik Anda",
 
     // Machines Section
-    "machines.title": "Peralatan Canggih",
+    "machines.title": "Peralatan yang Canggih",
     "machines.subtitle": "Teknologi terdepan untuk hasil yang superior",
 
     // Procedures Section
@@ -800,6 +800,7 @@ window.addEventListener(
 // Machines Carousel Navigation
 const machineSlides = document.querySelectorAll(".machine-card");
 const machineNavBtns = document.querySelectorAll(".machine-nav-btn");
+const machinesSlider = document.querySelector(".machines-slider");
 
 function showMachineSlide(targetMachine) {
   machineSlides.forEach((slide) => {
@@ -814,6 +815,32 @@ function showMachineSlide(targetMachine) {
   }
 }
 
+function getCurrentMachineNumber() {
+  const activeSlide = document.querySelector(".machine-card.active");
+  return activeSlide ? parseInt(activeSlide.getAttribute("data-machine")) : 1;
+}
+
+function getTotalMachines() {
+  return machineSlides.length;
+}
+
+function navigateToNextMachine() {
+  const current = getCurrentMachineNumber();
+  const total = getTotalMachines();
+  const next = current < total ? current + 1 : current;
+  if (next !== current) {
+    showMachineSlide(next);
+  }
+}
+
+function navigateToPreviousMachine() {
+  const current = getCurrentMachineNumber();
+  const prev = current > 1 ? current - 1 : current;
+  if (prev !== current) {
+    showMachineSlide(prev);
+  }
+}
+
 machineNavBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -822,9 +849,56 @@ machineNavBtns.forEach((btn) => {
   });
 });
 
+// Add swipe/touch support for machines carousel
+if (machinesSlider) {
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let touchStartY = 0;
+  let touchEndY = 0;
+  const swipeThreshold = 50; // minimum distance to be considered a swipe
+
+  machinesSlider.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    },
+    { passive: true }
+  );
+
+  machinesSlider.addEventListener(
+    "touchend",
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    },
+    { passive: true }
+  );
+
+  function handleSwipe() {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    // Check if horizontal swipe is more significant than vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (Math.abs(deltaX) > swipeThreshold) {
+        if (deltaX > 0) {
+          // Swipe right - go to previous
+          navigateToPreviousMachine();
+        } else {
+          // Swipe left - go to next
+          navigateToNextMachine();
+        }
+      }
+    }
+  }
+}
+
 // Procedures Carousel Navigation
 const procedureSlides = document.querySelectorAll(".procedure-slide");
 const procedureNavBtns = document.querySelectorAll(".procedure-nav-btn");
+const proceduresSlider = document.querySelector(".procedures-slider");
 
 function showProcedureSlide(targetProcedure) {
   procedureSlides.forEach((slide) => {
@@ -839,6 +913,32 @@ function showProcedureSlide(targetProcedure) {
   }
 }
 
+function getCurrentProcedureNumber() {
+  const activeSlide = document.querySelector(".procedure-slide.active");
+  return activeSlide ? parseInt(activeSlide.getAttribute("data-procedure")) : 1;
+}
+
+function getTotalProcedures() {
+  return procedureSlides.length;
+}
+
+function navigateToNextProcedure() {
+  const current = getCurrentProcedureNumber();
+  const total = getTotalProcedures();
+  const next = current < total ? current + 1 : current;
+  if (next !== current) {
+    showProcedureSlide(next);
+  }
+}
+
+function navigateToPreviousProcedure() {
+  const current = getCurrentProcedureNumber();
+  const prev = current > 1 ? current - 1 : current;
+  if (prev !== current) {
+    showProcedureSlide(prev);
+  }
+}
+
 procedureNavBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -846,6 +946,52 @@ procedureNavBtns.forEach((btn) => {
     showProcedureSlide(targetProcedure);
   });
 });
+
+// Add swipe/touch support for procedures carousel
+if (proceduresSlider) {
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let touchStartY = 0;
+  let touchEndY = 0;
+  const swipeThreshold = 50;
+
+  proceduresSlider.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    },
+    { passive: true }
+  );
+
+  proceduresSlider.addEventListener(
+    "touchend",
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleProcedureSwipe();
+    },
+    { passive: true }
+  );
+
+  function handleProcedureSwipe() {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    // Check if horizontal swipe is more significant than vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (Math.abs(deltaX) > swipeThreshold) {
+        if (deltaX > 0) {
+          // Swipe right - go to previous
+          navigateToPreviousProcedure();
+        } else {
+          // Swipe left - go to next
+          navigateToNextProcedure();
+        }
+      }
+    }
+  }
+}
 
 // -----------------------------
 // Google Reviews - Dynamic Cards
