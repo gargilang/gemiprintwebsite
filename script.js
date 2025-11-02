@@ -1247,9 +1247,24 @@ if (proceduresSlider) {
         </div>
         ${googleSvg}
       </div>
-      <p class="review-text">${t.text}</p>
+      <div class="review-text">
+        <div class="review-text-inner">${t.text}</div>
+      </div>
       <span class="review-date">${t.date}</span>
     `;
+
+    // Check if text overflows and add class for animation
+    setTimeout(() => {
+      const textEl = el.querySelector(".review-text");
+      const innerEl = el.querySelector(".review-text-inner");
+      if (textEl && innerEl) {
+        // Check if content height exceeds container height
+        if (innerEl.scrollHeight > textEl.clientHeight) {
+          innerEl.classList.add("has-overflow");
+        }
+      }
+    }, 100);
+
     return el;
   }
 
