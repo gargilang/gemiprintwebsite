@@ -73,9 +73,11 @@ const translations = {
     // Hero Section
     "hero.title1": "Your Partner in Printing and",
     "hero.title2": "Powerful Promotions",
+    "hero.eyebrow": "Printing in Cikarang — Cifest Walk",
     "hero.subtitle":
       "Delivering high-quality printing and promotional solutions that help your business make a lasting impression. From business cards to banners, we turn your ideas into results that speak for your brand.",
     "hero.cta": "Get Started",
+    "hero.cta2": "View Services",
 
     // About Section
     "about.title1": "Why Choose",
@@ -207,9 +209,11 @@ const translations = {
     // Hero Section
     "hero.title1": "Mitra Anda dalam Percetakan dan",
     "hero.title2": "Promosi yang Efektif",
+    "hero.eyebrow": "Percetakan Cikarang — Cifest Walk",
     "hero.subtitle":
       "Memberikan solusi percetakan dan promosi berkualitas tinggi yang membantu bisnis Anda membuat kesan yang tahan lama dan mengesankan. Dari kartu nama hingga spanduk, kami mengubah ide Anda menjadi hasil yang berbicara untuk brand Anda.",
     "hero.cta": "Order Sekarang",
+    "hero.cta2": "Lihat Layanan",
 
     // About Section
     "about.title1": "Mengapa Memilih",
@@ -512,7 +516,7 @@ function ensureRecaptchaLoaded() {
     recaptchaScriptLoading = new Promise((resolve, reject) => {
       const s = document.createElement("script");
       s.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(
-        RECAPTCHA_SITE_KEY
+        RECAPTCHA_SITE_KEY,
       )}`;
       s.async = true;
       s.defer = true;
@@ -582,7 +586,7 @@ if (form) {
 
     // Client-side rate limiting: 60s between submissions per device
     const lastSubmit = Number(
-      localStorage.getItem("gp_contact_last_submit") || "0"
+      localStorage.getItem("gp_contact_last_submit") || "0",
     );
     if (Date.now() - lastSubmit < 60 * 1000) {
       statusMsg.textContent =
@@ -637,7 +641,7 @@ if (form) {
       const response = await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
-        templateParams
+        templateParams,
       );
 
       console.log("Email sent successfully:", response);
@@ -666,17 +670,11 @@ if (form) {
 
 // Quick Navigation - Active State Detection
 const quickNavItems = document.querySelectorAll(
-  ".quick-nav-item:not(.quick-nav-whatsapp)"
+  ".quick-nav-item:not(.quick-nav-whatsapp)",
 );
 const sections = document.querySelectorAll("section[id]");
 let isNavigatingViaClick = false;
 let clickTargetSection = null;
-
-function addRipple(el) {
-  if (!el) return;
-  el.classList.add("ripple");
-  setTimeout(() => el.classList.remove("ripple"), 450);
-}
 
 function updateActiveNav() {
   // Skip ALL active state changes during click-based navigation
@@ -686,31 +684,34 @@ function updateActiveNav() {
 
   const scrollPosition = window.scrollY + 100; // offset untuk navbar
 
+  // Find which section we're currently in
+  let currentSectionId = null;
   sections.forEach((section) => {
     const sectionTop = section.offsetTop;
     const sectionHeight = section.offsetHeight;
-    const sectionId = section.getAttribute("id");
-
     if (
       scrollPosition >= sectionTop &&
       scrollPosition < sectionTop + sectionHeight
     ) {
-      // Find current active before removing
-      const currentActive = document.querySelector(".quick-nav-item.active");
-
-      // Remove active from all
-      quickNavItems.forEach((item) => item.classList.remove("active"));
-
-      // Add active to current section's nav item
-      const activeItem = document.querySelector(
-        `.quick-nav-item[href="#${sectionId}"]`
-      );
-      if (activeItem && !activeItem.classList.contains("quick-nav-whatsapp")) {
-        activeItem.classList.add("active");
-        addRipple(activeItem);
-      }
+      currentSectionId = section.getAttribute("id");
     }
   });
+
+  if (!currentSectionId) return;
+
+  const activeItem = document.querySelector(
+    `.quick-nav-item[href="#${currentSectionId}"]`,
+  );
+  if (!activeItem || activeItem.classList.contains("quick-nav-whatsapp"))
+    return;
+
+  // Idempotent: if the right icon is already active, do nothing. This avoids
+  // removing/re-adding the class every scroll frame, which re-triggered the
+  // scale transition and made the icons "shake" while scrolling past them.
+  if (activeItem.classList.contains("active")) return;
+
+  quickNavItems.forEach((item) => item.classList.remove("active"));
+  activeItem.classList.add("active");
 }
 
 // Handle click on sidebar icons
@@ -727,11 +728,8 @@ quickNavItems.forEach((item) => {
     isNavigatingViaClick = true;
     clickTargetSection = targetHref;
 
-    // Apply ripple ONLY to source (current active icon) and destination (target)
-    if (currentActive && currentActive !== targetItem) {
-      addRipple(currentActive);
-    }
-    addRipple(targetItem);
+    // (ripple effect removed)
+    void currentActive;
 
     // Immediately set destination as active (remove from all others)
     quickNavItems.forEach((item) => item.classList.remove("active"));
@@ -767,6 +765,9 @@ window.addEventListener(
       updateActiveNav();
     }, 10);
 
+    // Shrink the navbar once the page is scrolled away from the very top
+    updateNavbarScrolled();
+
     // Auto-hide sidebar when idle (mobile only)
     if (window.innerWidth <= 768) {
       // Show navigation when scrolling (user is navigating)
@@ -782,11 +783,23 @@ window.addEventListener(
       quickNav.classList.remove("hide-on-scroll");
     }
   },
-  { passive: true }
+  { passive: true },
 );
+
+// Shrink navbar when scrolled away from the top
+const navbarEl = document.querySelector(".navbar");
+function updateNavbarScrolled() {
+  if (!navbarEl) return;
+  if (window.scrollY > 20) {
+    navbarEl.classList.add("scrolled");
+  } else {
+    navbarEl.classList.remove("scrolled");
+  }
+}
 
 // Initial check
 updateActiveNav();
+updateNavbarScrolled();
 
 // Initially hide on mobile after 1.5 seconds (user starts reading)
 if (window.innerWidth <= 768) {
@@ -826,7 +839,7 @@ window.addEventListener(
       }
     }
   },
-  { passive: true }
+  { passive: true },
 );
 
 // Machines Carousel Navigation
@@ -834,7 +847,7 @@ const machineSlides = document.querySelectorAll(".machine-card");
 const machineNavBtns = document.querySelectorAll(".machine-nav-btn");
 const machinesSlider = document.querySelector(".machines-slider");
 const machinePaginationDots = document.querySelectorAll(
-  ".machines-pagination .pagination-dot"
+  ".machines-pagination .pagination-dot",
 );
 
 function updateMachinePagination(activeNumber) {
@@ -854,7 +867,7 @@ function showMachineSlide(targetMachine) {
   });
 
   const targetSlide = document.querySelector(
-    `.machine-card[data-machine="${targetMachine}"]`
+    `.machine-card[data-machine="${targetMachine}"]`,
   );
   if (targetSlide) {
     targetSlide.classList.add("active");
@@ -918,7 +931,7 @@ if (machinesSlider) {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
     },
-    { passive: true }
+    { passive: true },
   );
 
   machinesSlider.addEventListener(
@@ -928,7 +941,7 @@ if (machinesSlider) {
       touchEndY = e.changedTouches[0].screenY;
       handleSwipe();
     },
-    { passive: true }
+    { passive: true },
   );
 
   function handleSwipe() {
@@ -955,7 +968,7 @@ const procedureSlides = document.querySelectorAll(".procedure-card");
 const procedureNavBtns = document.querySelectorAll(".procedure-nav-btn");
 const proceduresSlider = document.querySelector(".procedures-slider");
 const procedurePaginationDots = document.querySelectorAll(
-  ".procedures-pagination .pagination-dot"
+  ".procedures-pagination .pagination-dot",
 );
 
 function showProcedureSlide(targetProcedure) {
@@ -965,12 +978,12 @@ function showProcedureSlide(targetProcedure) {
       "peek-bottom",
       "peek-bottom-2",
       "peek-top",
-      "peek-top-2"
+      "peek-top-2",
     );
   });
 
   const targetSlide = document.querySelector(
-    `.procedure-card[data-procedure="${targetProcedure}"]`
+    `.procedure-card[data-procedure="${targetProcedure}"]`,
   );
   if (targetSlide) {
     targetSlide.classList.add("active");
@@ -1011,7 +1024,7 @@ function showProcedureSlide(targetProcedure) {
     dot.classList.remove("active");
   });
   const activeDot = document.querySelector(
-    `.procedures-pagination .pagination-dot[data-target="${targetProcedure}"]`
+    `.procedures-pagination .pagination-dot[data-target="${targetProcedure}"]`,
   );
   if (activeDot) {
     activeDot.classList.add("active");
@@ -1074,7 +1087,7 @@ if (proceduresSlider) {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
     },
-    { passive: true }
+    { passive: true },
   );
 
   proceduresSlider.addEventListener(
@@ -1084,7 +1097,7 @@ if (proceduresSlider) {
       touchEndY = e.changedTouches[0].screenY;
       handleProcedureSwipe();
     },
-    { passive: true }
+    { passive: true },
   );
 
   function handleProcedureSwipe() {
@@ -1211,7 +1224,7 @@ if (proceduresSlider) {
           typeof r.name === "string" &&
           r.name.trim() &&
           typeof r.text === "string" &&
-          r.text.trim()
+          r.text.trim(),
       );
     } catch (_) {
       return [];
@@ -1406,7 +1419,7 @@ if (proceduresSlider) {
         requestAnimationFrame(() => card.classList.add("fade-in"));
         setTimeout(
           () => card.classList.remove("fade-in-start", "fade-in"),
-          320
+          320,
         );
       }
     } else {
@@ -1448,4 +1461,38 @@ if (proceduresSlider) {
     renderInitial();
     ensureInterval();
   })();
+})();
+
+// ---------------------------------------------------------------------------
+// Scroll reveal (Apple-style): fade/slide elements in as they enter view.
+// Opt-in via .reveal / .reveal-left / .reveal-right / .reveal-scale / .stagger
+// Respects prefers-reduced-motion (CSS already neutralizes the transforms).
+// ---------------------------------------------------------------------------
+(function initScrollReveal() {
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  const targets = document.querySelectorAll(".reveal, .stagger");
+  if (!targets.length) return;
+
+  // No IntersectionObserver (very old browser) or reduced motion:
+  // just show everything immediately.
+  if (prefersReduced || !("IntersectionObserver" in window)) {
+    targets.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        // Re-trigger: reveal on enter, hide again on exit so the
+        // animation replays every time the element scrolls back into view.
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+  );
+
+  targets.forEach((el) => observer.observe(el));
 })();
