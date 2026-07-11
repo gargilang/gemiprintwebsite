@@ -2527,6 +2527,9 @@ button[type="submit"]:disabled {
     -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
@@ -2628,6 +2631,21 @@ button[type="submit"]:disabled {
     .btn-ghost-x {
         flex: 1;
         justify-content: center;
+    }
+    /* Tighter, smaller marquee on phones */
+    .marquee-track {
+        gap: 28px;
+    }
+    .marquee-item {
+        font-size: 17px;
+    }
+    .marquee {
+        padding: 12px 0;
+    }
+    /* Keep the hero eyebrow chip from wrapping awkwardly */
+    .hero-eyebrow {
+        font-size: 12px;
+        padding: 5px 12px;
     }
 }
 
