@@ -286,7 +286,7 @@ const translations = {
     "contact.phone": "Telepon",
     "contact.email": "Email",
     "contact.hours": "Jam Buka",
-    "contact.hoursText": "Senin - Sabtu: 08.00 - 20.00\nMinggu: 09.00 - 20.00",
+    "contact.hoursText": "Senin - Sabtu: 08.00 - 20.00\nMinggu: TUTUP",
     "contact.form.name": "Nama Anda *",
     "contact.form.email": "Email Anda (opsional)",
     "contact.form.phone": "Nomor Telepon *",
