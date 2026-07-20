@@ -155,7 +155,7 @@ const translations = {
     "contact.phone": "Phone",
     "contact.email": "Email",
     "contact.hours": "Hours",
-    "contact.hoursText": "Monday - Saturday: 8AM - 8PM\nSunday: 9AM - 8PM",
+    "contact.hoursText": "Monday - Saturday: 8AM - 8PM\nSunday: CLOSED",
     "contact.form.name": "Your Name *",
     "contact.form.email": "Your Email (optional)",
     "contact.form.phone": "Phone Number *",
